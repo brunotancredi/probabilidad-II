@@ -1,0 +1,37 @@
+[
+  {
+    "objectID": "TCL.html#repaso",
+    "href": "TCL.html#repaso",
+    "title": "Teorema del Límite Central",
+    "section": "Repaso",
+    "text": "Repaso\nSea \\(X_1, X_2, \\dots, X_n\\) una sucesión de variables aleatorias i.i.d. con esperanza finita \\(\\mu\\) y varianza finita \\(\\sigma^2\\), y \\(\\bar{X}_n = \\frac{X_1 + X_2 + \\dots + X_n}{n}\\).\nEntonces, cuando \\(n \\to \\infty\\),\n\\[\n\\mathbb{P} \\left( \\frac{\\sqrt{n} (\\bar{X}_n - \\mu)}{\\sigma} \\leq x \\right) \\to \\Phi(x) \\quad \\text{para todo } x \\in \\mathbb{R}\n\\]"
+  },
+  {
+    "objectID": "TCL.html#ejercicio",
+    "href": "TCL.html#ejercicio",
+    "title": "Teorema del Límite Central",
+    "section": "Ejercicio",
+    "text": "Ejercicio\nDesarrollar el ejemplo 3, generando N= 100, 500, 1000 realizaciones de la sucesión del Error normalizado y construir histogramas/estimación de densidades con los 100, 500, 1000 valores obtenidos cuando M = 500 y 1000. Comparar los histogramas/estimación de densidades así obtenidos con la densidad de una distribución normal centrada con varianza igual a Var(U_1), U_1 ~ Uniforme(0,1). Interpretar los resultados obtenidos."
+  },
+  {
+    "objectID": "TCL.html#ejercicio---solución-para-n-1000",
+    "href": "TCL.html#ejercicio---solución-para-n-1000",
+    "title": "Teorema del Límite Central",
+    "section": "Ejercicio - Solución para N = 1000",
+    "text": "Ejercicio - Solución para N = 1000\n\nN &lt;- 100 \nM &lt;- 1000\n\nsemillas &lt;- sample(1:10000,100,replace=F) #Obtenemos 1000 semillas\n\ndf &lt;- do.call(rbind, lapply(semillas, genera_simulacion, M = M))\ndf &lt;- df |&gt; filter(M %in% c(1, 500, 1000))\n\nggplot(df) +\n  geom_histogram(aes(x = normerror, y=after_stat(density)), fill = \"blue\") +\n  labs(title = paste(\"Distribución de las medias muestrales\"),\n       x = \"Media Muestral\", y = \"Frecuencia\") +\n  theme_minimal() +\n  facet_wrap(~ M, nrow=2)"
+  },
+  {
+    "objectID": "TCL.html#visualización-tcl-con-u01",
+    "href": "TCL.html#visualización-tcl-con-u01",
+    "title": "Teorema del Límite Central",
+    "section": "Visualización TCL con U(0,1)",
+    "text": "Visualización TCL con U(0,1)\n\nimport { aq, op } from '@uwdata/arquero'\n\nmy_data = aq.from(transpose(ojs_data))\n\nviewof n = Inputs.range(\n  [1, 400], \n  {value: 1, step: 1, label: \"Tamaño muestra:\"}\n)\n\nnormalData = Array.from({ length: 100 }, (_, i) =&gt; {\n  let x = -3 + (i / 99) * 6; // Range from -3 to 3\n  return { x, y: Math.exp(-0.5 * x * x) / Math.sqrt(2 * Math.PI) };\n});\n\npoint = Array.from({length: 1}, (_, i) =&gt; {return {x: 0, y: 0.5}})\n\nPlot.plot({\n    width: 1000,\n    height: 500,\n    y: {grid: true},\n    x: {round: true},    \n    marks: [\n      Plot.rectY(my_data, \n                Plot.binX({y: (a, bin) =&gt; {\n                              return a.length / (10000*(bin.x2 - bin.x1));\n                           }}, \n                          {x: {value: n.toString(), \n                               inset: 0,\n                               thresholds: d3.range(-3,3 + 0.11, 0.11),\n                               domain: [-3, 3],\n                               }})),\n      Plot.ruleY([0]),\n      Plot.line(normalData, { x: \"x\", y: \"y\", stroke: \"red\" }), //Normal\n      Plot.dot(point, {x: \"x\", y: \"y\", r: 0})    \n    ]\n})"
+  },
+  {
+    "objectID": "TCL.html#recomendación",
+    "href": "TCL.html#recomendación",
+    "title": "Teorema del Límite Central",
+    "section": "Recomendación",
+    "text": "Recomendación"
+  }
+]
