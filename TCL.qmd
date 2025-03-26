@@ -1,22 +1,52 @@
 ---
-title: "TCL"
+title: "Teorema del Límite Central"
+date: today
+date-format: DD-MM-YYYY[ ]
 format: 
   revealjs:
     page-layout: full
 editor: visual
 ---
 
-```{css}
-.reveal .cell .output .plot {
-  width: 100%;
-  max-width: 100%;
-}
+## Repaso
+
+Sea $X_1, X_2, \dots, X_n$ una sucesión de variables aleatorias i.i.d. con esperanza finita $\mu$ y varianza finita $\sigma^2$, y $\bar{X}_n = \frac{X_1 + X_2 + \dots + X_n}{n}$. 
+
+Entonces, cuando $n \to \infty$,
+
+$$
+\mathbb{P} \left( \frac{\sqrt{n} (\bar{X}_n - \mu)}{\sigma} \leq x \right) \to \Phi(x) \quad \text{para todo } x \in \mathbb{R}
+$$
+
+## Ejercicio
+
+Desarrollar el ejemplo 3, generando N= 100, 500, 1000 realizaciones de la sucesión del Error normalizado y construir histogramas/estimación de densidades con los 100, 500, 1000 valores obtenidos cuando M = 500 y 1000. Comparar los histogramas/estimación de densidades así obtenidos con la densidad de una distribución normal centrada con varianza igual a Var(U_1), U_1 \~ Uniforme(0,1). Interpretar los resultados obtenidos.
+
+## Ejercicio - Solución para N = 1000
+
+```{r, eval=F, echo=T}
+N <- 100 
+M <- 1000
+
+semillas <- sample(1:10000,100,replace=F) #Obtenemos 1000 semillas
+
+df <- do.call(rbind, lapply(semillas, genera_simulacion, M = M))
+df <- df |> filter(M %in% c(1, 500, 1000))
+
+ggplot(df) +
+  geom_histogram(aes(x = normerror, y=after_stat(density)), fill = "blue") +
+  labs(title = paste("Distribución de las medias muestrales"),
+       x = "Media Muestral", y = "Frecuencia") +
+  theme_minimal() +
+  facet_wrap(~ M, nrow=2)
 ```
 
-```{r, echo=T}
+## Visualización TCL con U(0,1)
+
+```{r, echo=F}
 set.seed(123)
 
-n_muestras <- 500
+n_muestras <- 10000
 
 data <- lapply(1:400, function(n){
   muestras <- matrix(runif(n*n_muestras), ncol = n_muestras, nrow = n)
@@ -29,8 +59,6 @@ colnames(data) <- 1:400
 
 ojs_define(ojs_data = data)
 ```
-
-## Visualización TCL con U(0,1)
 
 ```{ojs}
 //| panel: input
@@ -56,14 +84,16 @@ Plot.plot({
     width: 1000,
     height: 500,
     y: {grid: true},
+    x: {round: true},    
     marks: [
       Plot.rectY(my_data, 
-                Plot.binX({y: "count",
-                           domain: [0,1]}, 
+                Plot.binX({y: (a, bin) => {
+                              return a.length / (10000*(bin.x2 - bin.x1));
+                           }}, 
                           {x: {value: n.toString(), 
-                               thresholds: 100, 
+                               inset: 0,
+                               thresholds: d3.range(-3,3 + 0.11, 0.11),
                                domain: [-3, 3],
-                               fill: "green"
                                }})),
       Plot.ruleY([0]),
       Plot.line(normalData, { x: "x", y: "y", stroke: "red" }), //Normal
