@@ -1,0 +1,77 @@
+---
+title: "TCL"
+format: 
+  revealjs:
+    page-layout: full
+editor: visual
+---
+
+```{css}
+.reveal .cell .output .plot {
+  width: 100%;
+  max-width: 100%;
+}
+```
+
+```{r, echo=T}
+set.seed(123)
+
+n_muestras <- 500
+
+data <- lapply(1:400, function(n){
+  muestras <- matrix(runif(n*n_muestras), ncol = n_muestras, nrow = n)
+  medias_muestrales <- apply(muestras, MARGIN = 2, mean)
+  medias_muestrales_normalizadas <- (medias_muestrales - 0.5)*sqrt(n)/(sqrt(1/12))
+})
+
+data <- as.data.frame(data)
+colnames(data) <- 1:400
+
+ojs_define(ojs_data = data)
+```
+
+## Visualización TCL con U(0,1)
+
+```{ojs}
+//| panel: input
+//| echo: False
+//| width: "100%"
+import { aq, op } from '@uwdata/arquero'
+
+my_data = aq.from(transpose(ojs_data))
+
+viewof n = Inputs.range(
+  [1, 400], 
+  {value: 1, step: 1, label: "Tamaño muestra:"}
+)
+
+normalData = Array.from({ length: 100 }, (_, i) => {
+  let x = -3 + (i / 99) * 6; // Range from -3 to 3
+  return { x, y: Math.exp(-0.5 * x * x) / Math.sqrt(2 * Math.PI) };
+});
+
+point = Array.from({length: 1}, (_, i) => {return {x: 0, y: 0.5}})
+
+Plot.plot({
+    width: 1000,
+    height: 500,
+    y: {grid: true},
+    marks: [
+      Plot.rectY(my_data, 
+                Plot.binX({y: "count",
+                           domain: [0,1]}, 
+                          {x: {value: n.toString(), 
+                               thresholds: 100, 
+                               domain: [-3, 3],
+                               fill: "green"
+                               }})),
+      Plot.ruleY([0]),
+      Plot.line(normalData, { x: "x", y: "y", stroke: "red" }), //Normal
+      Plot.dot(point, {x: "x", y: "y", r: 0})    
+    ]
+})
+```
+
+## Recomendación
+
+{{< video https://www.youtube.com/watch?v=zeJD6dqJ5lo width="100%" height="85%" >}}
