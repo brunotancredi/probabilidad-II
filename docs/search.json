@@ -1,0 +1,16 @@
+[
+  {
+    "objectID": "TCL.html#visualización-tcl-con-u01",
+    "href": "TCL.html#visualización-tcl-con-u01",
+    "title": "TCL",
+    "section": "Visualización TCL con U(0,1)",
+    "text": "Visualización TCL con U(0,1)\n\nimport { aq, op } from '@uwdata/arquero'\n\nmy_data = aq.from(transpose(ojs_data))\n\nviewof n = Inputs.range(\n  [1, 400], \n  {value: 1, step: 1, label: \"Tamaño muestra:\"}\n)\n\nnormalData = Array.from({ length: 100 }, (_, i) =&gt; {\n  let x = -3 + (i / 99) * 6; // Range from -3 to 3\n  return { x, y: Math.exp(-0.5 * x * x) / Math.sqrt(2 * Math.PI) };\n});\n\npoint = Array.from({length: 1}, (_, i) =&gt; {return {x: 0, y: 0.5}})\n\nPlot.plot({\n    width: 1000,\n    height: 500,\n    y: {grid: true},\n    marks: [\n      Plot.rectY(my_data, \n                Plot.binX({y: \"count\",\n                           domain: [0,1]}, \n                          {x: {value: n.toString(), \n                               thresholds: 100, \n                               domain: [-3, 3],\n                               fill: \"green\"\n                               }})),\n      Plot.ruleY([0]),\n      Plot.line(normalData, { x: \"x\", y: \"y\", stroke: \"red\" }), //Normal\n      Plot.dot(point, {x: \"x\", y: \"y\", r: 0})    \n    ]\n})"
+  },
+  {
+    "objectID": "TCL.html#recomendación",
+    "href": "TCL.html#recomendación",
+    "title": "TCL",
+    "section": "Recomendación",
+    "text": "Recomendación"
+  }
+]
