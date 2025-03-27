@@ -24,7 +24,7 @@ Desarrollar el ejemplo 3, generando N= 100, 500, 1000 realizaciones de la sucesi
 
 ## Ejercicio - Solución para N = 1000
 
-```{r, eval=F, echo=T}
+```{r, eval=T, echo=T, results=F}
 ### Ejercicio propuesto: desarrollar el ejemplo 3, generando N= 100, 500, 1000 realizaciones de la sucesión del Error normalizado y construir histogramas/estimación de densidades con los 100, 500, 1000 valores obtenidos cuando M = 500 y 1000. Comparar los histogramas/estimación de densidades así obtenidos con la densidad de una distribución normal centrada con varianza igual a Var(U_1), U_1 ~ Uniforme(0,1). Interpretar los resultados obtenidos.
 
 rm(list=ls())
@@ -76,7 +76,7 @@ density_normal <- dnorm(x_values, mean = 0, sd = sqrt(1/12))
 titulo <- paste("Histograma y estimación de densidad del error normalizado\n", "con densidad teórica N(0, 1/12) - N =", N)
 
 # Gráfico con cuatro paneles
-ggplot(resultados_long, aes(x = Error)) +
+plot <- ggplot(resultados_long, aes(x = Error)) +
   geom_histogram(aes(y = ..density..), bins = 30, fill = "blue", alpha = 0.4) +
   geom_density(fill = "blue", alpha = 0.2) +
   geom_line(data = data.frame(x_values, density_normal),
@@ -90,7 +90,13 @@ ggplot(resultados_long, aes(x = Error)) +
   theme(strip.text = element_text(face = "bold"))
 ```
 
-## Visualización TCL con U(0,1)
+## Ejercicio - Resultado
+
+```{r, echo=FALSE}
+plot
+```
+
+## Visualización TCL
 
 ```{r, echo=F}
 set.seed(123)
