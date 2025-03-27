@@ -10,7 +10,7 @@ editor: visual
 
 ## Repaso
 
-Sea $X_1, X_2, \dots, X_n$ una sucesión de variables aleatorias i.i.d. con esperanza finita $\mu$ y varianza finita $\sigma^2$, y $\bar{X}_n = \frac{X_1 + X_2 + \dots + X_n}{n}$. 
+Sea $X_1, X_2, \dots, X_n$ una sucesión de variables aleatorias i.i.d. con esperanza finita $\mu$ y varianza finita $\sigma^2$, y $\bar{X}_n = \frac{X_1 + X_2 + \dots + X_n}{n}$.
 
 Entonces, cuando $n \to \infty$,
 
@@ -25,20 +25,69 @@ Desarrollar el ejemplo 3, generando N= 100, 500, 1000 realizaciones de la sucesi
 ## Ejercicio - Solución para N = 1000
 
 ```{r, eval=F, echo=T}
-N <- 100 
-M <- 1000
+### Ejercicio propuesto: desarrollar el ejemplo 3, generando N= 100, 500, 1000 realizaciones de la sucesión del Error normalizado y construir histogramas/estimación de densidades con los 100, 500, 1000 valores obtenidos cuando M = 500 y 1000. Comparar los histogramas/estimación de densidades así obtenidos con la densidad de una distribución normal centrada con varianza igual a Var(U_1), U_1 ~ Uniforme(0,1). Interpretar los resultados obtenidos.
 
-semillas <- sample(1:10000,100,replace=F) #Obtenemos 1000 semillas
+rm(list=ls())
+library(ggplot2)
+library(tidyr)
 
-df <- do.call(rbind, lapply(semillas, genera_simulacion, M = M))
-df <- df |> filter(M %in% c(1, 500, 1000))
+# Establecer semilla global para reproducibilidad
+set.seed(123)  # Semilla fija para generar las semillas aleatorias
 
-ggplot(df) +
-  geom_histogram(aes(x = normerror, y=after_stat(density)), fill = "blue") +
-  labs(title = paste("Distribución de las medias muestrales"),
-       x = "Media Muestral", y = "Frecuencia") +
+# Función para generar simulaciones del error normalizado
+simula_error_normalizado <- function(seed, M) {
+  set.seed(seed)  # Semilla específica para cada simulación
+  U <- runif(M)  # Muestras uniformes
+  running_mean <- cumsum(U) / (1:M)  # Media muestral acumulada
+  norm_error <- sqrt(1:M) * (running_mean - 0.5)  # Error normalizado
+  return(norm_error[c(500, 1000, 2000, 5000)])  # Devuelve el error normalizado en M=500, M=1000, M=2000 y M=5000
+}
+
+# Parámetros de simulación
+N <- 1000 # 500, 1000 Número de simulaciones
+
+# Generar semillas aleatorias reproducibles
+semillas <- sample(1:10^6, N, replace = FALSE)
+
+# Generar simulaciones para los valores de M especificados
+resultados <- t(sapply(semillas, simula_error_normalizado, M = 5000))
+colnames(resultados) <- c("M500", "M1000", "M2000", "M5000")
+resultados_df <- data.frame(resultados)
+
+# identificador ficticio 
+resultados_df$id <- 1:nrow(resultados_df)
+
+# Transformar a formato largo especificando id.vars
+resultados_long <- pivot_longer(resultados_df, 
+                        cols = -id,
+                        names_to = 'M',
+                        values_to = 'Error')
+
+# Convertir la columna 'M' en factor
+resultados_long$M <- factor(resultados_long$M, 
+          levels = c("M500", "M1000", "M2000", "M5000"),
+          labels = c("M = 500", "M = 1000", "M = 2000", "M = 5000"))
+
+# Crear datos para la densidad teórica de la normal con media 0 y varianza 1/12
+x_values <- seq(-1.5, 1.5, length.out = 1000)
+density_normal <- dnorm(x_values, mean = 0, sd = sqrt(1/12))
+
+# Título dinámico con el valor de N
+titulo <- paste("Histograma y estimación de densidad del error normalizado\n", "con densidad teórica N(0, 1/12) - N =", N)
+
+# Gráfico con cuatro paneles
+ggplot(resultados_long, aes(x = Error)) +
+  geom_histogram(aes(y = ..density..), bins = 30, fill = "blue", alpha = 0.4) +
+  geom_density(fill = "blue", alpha = 0.2) +
+  geom_line(data = data.frame(x_values, density_normal),
+            aes(x = x_values, y = density_normal),
+            color = "red", linetype = "dashed", size = 1) +
+  facet_wrap(~ M, ncol = 2) + # Organizar en una cuadrícula de dos columnas
+  labs(title = titulo,
+       x = "Error normalizado",
+       y = "Densidad") +
   theme_minimal() +
-  facet_wrap(~ M, nrow=2)
+  theme(strip.text = element_text(face = "bold"))
 ```
 
 ## Visualización TCL con U(0,1)
@@ -48,14 +97,28 @@ set.seed(123)
 
 n_muestras <- 10000
 
-data <- lapply(1:400, function(n){
+uniforme <- lapply(1:400, function(n){
   muestras <- matrix(runif(n*n_muestras), ncol = n_muestras, nrow = n)
   medias_muestrales <- apply(muestras, MARGIN = 2, mean)
   medias_muestrales_normalizadas <- (medias_muestrales - 0.5)*sqrt(n)/(sqrt(1/12))
 })
 
-data <- as.data.frame(data)
-colnames(data) <- 1:400
+exponencial <- lapply(1:400, function(n){
+  muestras <- matrix(rexp(n*n_muestras), ncol = n_muestras, nrow = n)
+  medias_muestrales <- apply(muestras, MARGIN = 2, mean)
+  medias_muestrales_normalizadas <- (medias_muestrales - 1)*sqrt(n)/(sqrt(1/1))
+})
+
+uniforme <- as.data.frame(uniforme)
+exponencial <- as.data.frame(exponencial)
+
+colnames(uniforme) <- 1:400
+colnames(exponencial) <- 1:400
+
+exponencial$distribucion <- "exponencial"
+uniforme$distribucion <- "uniforme"
+
+data <- rbind(exponencial, uniforme) 
 
 ojs_define(ojs_data = data)
 ```
@@ -73,10 +136,16 @@ viewof n = Inputs.range(
   {value: 1, step: 1, label: "Tamaño muestra:"}
 )
 
+viewof distribucion = Inputs.radio(["uniforme", "exponencial"], {value: "uniforme", label: "Distribución"})
+
 normalData = Array.from({ length: 100 }, (_, i) => {
   let x = -3 + (i / 99) * 6; // Range from -3 to 3
   return { x, y: Math.exp(-0.5 * x * x) / Math.sqrt(2 * Math.PI) };
 });
+
+
+my_data_2 = my_data.params({ distribucion }).filter(d => d.distribucion === distribucion);
+
 
 point = Array.from({length: 1}, (_, i) => {return {x: 0, y: 0.5}})
 
@@ -86,7 +155,7 @@ Plot.plot({
     y: {grid: true},
     x: {round: true},    
     marks: [
-      Plot.rectY(my_data, 
+      Plot.rectY(my_data_2, 
                 Plot.binX({y: (a, bin) => {
                               return a.length / (10000*(bin.x2 - bin.x1));
                            }}, 
