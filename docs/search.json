@@ -8,5 +8,65 @@
     "crumbs": [
       "Presentación"
     ]
+  },
+  {
+    "objectID": "problema_I.html",
+    "href": "problema_I.html",
+    "title": "1  Problema I",
+    "section": "",
+    "text": "1.1 Enunciado Teorema Central del Límite\nSea \\(X_1, X_2, \\dots, X_n\\) una sucesión de variables aleatorias i.i.d. con esperanza finita \\(\\mu\\) y varianza finita \\(\\sigma^2\\), y \\(\\bar{X}_n = \\frac{X_1 + X_2 + \\dots + X_n}{n}\\).\nEntonces, cuando \\(n \\to \\infty\\),\n\\[\n\\mathbb{P} \\left( \\frac{\\sqrt{n} (\\bar{X}_n - \\mu)}{\\sigma} \\leq x \\right) \\to \\Phi(x) \\quad \\text{para todo } x \\in \\mathbb{R}\n\\]",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Problema I</span>"
+    ]
+  },
+  {
+    "objectID": "problema_I.html#ejercicio---solución-para-n-1000",
+    "href": "problema_I.html#ejercicio---solución-para-n-1000",
+    "title": "1  Problema I",
+    "section": "1.2 Ejercicio - Solución para N = 1000",
+    "text": "1.2 Ejercicio - Solución para N = 1000\n\n### Ejercicio propuesto: desarrollar el ejemplo 3, generando N= 100, 500, 1000 realizaciones de la sucesión del Error normalizado y construir histogramas/estimación de densidades con los 100, 500, 1000 valores obtenidos cuando M = 500 y 1000. Comparar los histogramas/estimación de densidades así obtenidos con la densidad de una distribución normal centrada con varianza igual a Var(U_1), U_1 ~ Uniforme(0,1). Interpretar los resultados obtenidos.\n\nrm(list=ls())\nlibrary(ggplot2)\nlibrary(tidyr)\n\n# Establecer semilla global para reproducibilidad\nset.seed(123)  # Semilla fija para generar las semillas aleatorias\n\n# Función para generar simulaciones del error normalizado\nsimula_error_normalizado &lt;- function(seed, M) {\n  set.seed(seed)  # Semilla específica para cada simulación\n  U &lt;- runif(M)  # Muestras uniformes\n  running_mean &lt;- cumsum(U) / (1:M)  # Media muestral acumulada\n  norm_error &lt;- sqrt(1:M) * (running_mean - 0.5)  # Error normalizado\n  return(norm_error[c(500, 1000, 2000, 5000)])  # Devuelve el error normalizado en M=500, M=1000, M=2000 y M=5000\n}\n\n# Parámetros de simulación\nN &lt;- 1000 # 500, 1000 Número de simulaciones\n\n# Generar semillas aleatorias reproducibles\nsemillas &lt;- sample(1:10^6, N, replace = FALSE)\n\n# Generar simulaciones para los valores de M especificados\nresultados &lt;- t(sapply(semillas, simula_error_normalizado, M = 5000))\ncolnames(resultados) &lt;- c(\"M500\", \"M1000\", \"M2000\", \"M5000\")\nresultados_df &lt;- data.frame(resultados)\n\n# identificador ficticio \nresultados_df$id &lt;- 1:nrow(resultados_df)\n\n# Transformar a formato largo especificando id.vars\nresultados_long &lt;- pivot_longer(resultados_df, \n                        cols = -id,\n                        names_to = 'M',\n                        values_to = 'Error')\n\n# Convertir la columna 'M' en factor\nresultados_long$M &lt;- factor(resultados_long$M, \n          levels = c(\"M500\", \"M1000\", \"M2000\", \"M5000\"),\n          labels = c(\"M = 500\", \"M = 1000\", \"M = 2000\", \"M = 5000\"))\n\n# Crear datos para la densidad teórica de la normal con media 0 y varianza 1/12\nx_values &lt;- seq(-1.5, 1.5, length.out = 1000)\ndensity_normal &lt;- dnorm(x_values, mean = 0, sd = sqrt(1/12))\n\n# Título dinámico con el valor de N\ntitulo &lt;- paste(\"Histograma y estimación de densidad del error normalizado\\n\", \"con densidad teórica N(0, 1/12) - N =\", N)\n\n# Gráfico con cuatro paneles\nplot &lt;- ggplot(resultados_long, aes(x = Error)) +\n  geom_histogram(aes(y = ..density..), bins = 30, fill = \"blue\", alpha = 0.4) +\n  geom_density(fill = \"blue\", alpha = 0.2) +\n  geom_line(data = data.frame(x_values, density_normal),\n            aes(x = x_values, y = density_normal),\n            color = \"red\", linetype = \"dashed\", size = 1) +\n  facet_wrap(~ M, ncol = 2) + # Organizar en una cuadrícula de dos columnas\n  labs(title = titulo,\n       x = \"Error normalizado\",\n       y = \"Densidad\") +\n  theme_minimal() +\n  theme(strip.text = element_text(face = \"bold\"))\nplot",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Problema I</span>"
+    ]
+  },
+  {
+    "objectID": "problema_I.html#recomendación",
+    "href": "problema_I.html#recomendación",
+    "title": "1  Problema I",
+    "section": "1.3 Recomendación",
+    "text": "1.3 Recomendación",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Problema I</span>"
+    ]
+  },
+  {
+    "objectID": "problema_II.html",
+    "href": "problema_II.html",
+    "title": "2  Problema II",
+    "section": "",
+    "text": "2.1 Parte 1\n$$",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Problema II</span>"
+    ]
+  },
+  {
+    "objectID": "problema_II.html#parte-1",
+    "href": "problema_II.html#parte-1",
+    "title": "2  Problema II",
+    "section": "",
+    "text": "$$\n\\[\\begin{aligned}\n\n\\mathbb{E} \\left[ e^{uX} \\right]\n\n&= \\int_{-\\infty}^{+\\infty} e^{ux}\\frac{1}{\\sqrt{2\\pi\\sigma^2}}e^{\\frac{-x^2}{2\\sigma^2}}dx \\\\\n\n&= \\int_{-\\infty}^{+\\infty} \\frac{1}{\\sqrt{2\\pi\\sigma^2}}e^{\\frac{-1}{2\\sigma^2}[x^2 - 2\\sigma^2ux]}dx \\\\\n\n&= \\int_{-\\infty}^{+\\infty} \\frac{1}{\\sqrt{2\\pi\\sigma^2}}e^{\\frac{-1}{2\\sigma^2}[x^2 - 2\\sigma^2ux + (\\sigma^2u)^2 - (\\sigma^2u)^2]} dx \\\\\n\n&=  \\int_{-\\infty}^{+\\infty} \\frac{1}{\\sqrt{2\\pi\\sigma^2}}e^{\\frac{-1}{2\\sigma^2}[(x -u\\sigma^2)^2 -(u\\sigma^2)^2]}dx \\\\\n\n&= e^\\frac{(u\\sigma^2)^2}{2\\sigma^2}\\int_{-\\infty}^{+\\infty}\\frac{1}{\\sqrt{2\\pi\\sigma^2}}e^\\frac{-(x-u\\sigma^2)^2}{2\\sigma^2}\\\\\n\n&\\text{Lo que nos queda dentro de la integral es la densidad de una } \\mathcal{N}(u\\sigma^2, \\sigma^2) \\text{ por lo que integra 1} \\\\\n\n&= e^\\frac{u^2\\sigma^2}{2}\n\n\\end{aligned}\\]",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Problema II</span>"
+    ]
+  },
+  {
+    "objectID": "problema_II.html#parte-2",
+    "href": "problema_II.html#parte-2",
+    "title": "2  Problema II",
+    "section": "2.2 Parte 2",
+    "text": "2.2 Parte 2",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Problema II</span>"
+    ]
   }
 ]
