@@ -1,3 +1,28 @@
 project:
-  type: website
-  output-dir: docs
+  type: book
+
+book:
+  title: "Probabilidad II - Práctico"
+  author: "Marco Scavino - Bruno Tancredi"
+  date: today
+  date-format: DD-MM-YYYY[ ]
+  chapters:
+    - index.qmd
+    - problema_I.qmd
+    - problema_II.qmd
+    
+bibliography: references.bib
+
+format:
+  html:
+    theme: cosmo
+    css: custom.css
+    mathjax: 
+      macros: {}
+      options:
+        scale: 3
+  pdf:
+    documentclass: scrreprt
+
+editor: visual
+

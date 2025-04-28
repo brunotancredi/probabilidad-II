@@ -1,0 +1,53 @@
+# Problema II
+
+Queremos estimar la función generatriz de momentos (transformada de Laplace)
+
+$$
+\phi_{X}(u):=E[e^{uX}], u \in \mathbb{R}
+$$
+
+de una variable aleatoria $X\sim N(0,\sigma^{2})$ utilizando una muestra de tamaño M de copias i.i.d. de X. El parámetro $\sigma^{2}$ es desconocido.
+
+1.  Demostrar que para $X\sim N(0,\sigma^{2})$ se cumple: $$
+      \mathbb{E}[e^{uX}]=e^{\sigma^{2}u^{2}/2}
+    $$
+
+2.  Comparar la precisión de los siguientes dos estimadores de $\phi_{X}(u)$:\
+    ***Estimador directo:*** $$
+      \phi_{1,M}(u):=\frac{1}{M}\sum_{m=1}^{M}e^{uX_{m}}.
+    $$ ***Estimador en dos etapas:***
+
+    a)  Estimar $\sigma^{2}$ mediante: $$
+           \sigma_{M}^{2}=\frac{1}{M-1}\sum_{m=1}^{M}(X_{m}-\bar{X})^{2}
+        $$
+    b)  Construir el estimador \`plug-in\` de $\phi_{X}(u)$ $$
+          \phi_{2,M}(u):=e^{\frac{u^{2}}{2}\sigma_{M}^{2}}
+        $$
+
+Construir intervalos de confianza asintóticos para ambos estimadores de $\phi_{X}(u)$. Interpretar los resultados obtenidos.
+
+## Parte 1
+
+$$
+\begin{aligned}
+
+\mathbb{E} \left[ e^{uX} \right] 
+
+&= \int_{-\infty}^{+\infty} e^{ux}\frac{1}{\sqrt{2\pi\sigma^2}}e^{\frac{-x^2}{2\sigma^2}}dx \\ 
+
+&= \int_{-\infty}^{+\infty} \frac{1}{\sqrt{2\pi\sigma^2}}e^{\frac{-1}{2\sigma^2}[x^2 - 2\sigma^2ux]}dx \\
+
+&= \int_{-\infty}^{+\infty} \frac{1}{\sqrt{2\pi\sigma^2}}e^{\frac{-1}{2\sigma^2}[x^2 - 2\sigma^2ux + (\sigma^2u)^2 - (\sigma^2u)^2]} dx \\
+
+&=  \int_{-\infty}^{+\infty} \frac{1}{\sqrt{2\pi\sigma^2}}e^{\frac{-1}{2\sigma^2}[(x -u\sigma^2)^2 -(u\sigma^2)^2]}dx \\
+
+&= e^\frac{(u\sigma^2)^2}{2\sigma^2}\int_{-\infty}^{+\infty}\frac{1}{\sqrt{2\pi\sigma^2}}e^\frac{-(x-u\sigma^2)^2}{2\sigma^2}\\
+
+&\text{Lo que nos queda dentro de la integral es la densidad de una } \mathcal{N}(u\sigma^2, \sigma^2) \text{ por lo que integra 1} \\
+
+&= e^\frac{u^2\sigma^2}{2}
+
+\end{aligned}
+$$
+
+## Parte 2
