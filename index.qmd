@@ -1,4 +1,3 @@
 # Presentación {.unnumbered}
 
 Aquí iremos publicando las soluciones de los problemas presentados durante el curso de Probabilidad II.
-
