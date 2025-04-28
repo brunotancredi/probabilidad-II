@@ -64,7 +64,7 @@
     "href": "problema_II.html#parte-2",
     "title": "2  Problema II",
     "section": "2.2 Parte 2",
-    "text": "2.2 Parte 2",
+    "text": "2.2 Parte 2\n\n2.2.1 Parte a: Estimador directo\nVerificamos que el indicador sea insesgado\n\\[    \n\\mathbb{E} \\bigr[ \\phi_{1,M}(u) \\bigl]\n    = \\mathbb{E} \\Bigr[ \\frac{1}{M}\\sum_{m=1}^M e^{uX_m} \\Bigl] \\quad\n    \\overset{\\text{linealidad}}{=} \\frac{1}{M}M\\mathbb{E}\\bigr[ e^{uX} \\bigl] \\quad\n    \\overset{\\text{parte 1}}{=} e^\\frac{u^2\\sigma^2}{2}\n\\] Estudiamos su varianza\n\\[\n\\begin{aligned}\n  \\text{Var} \\bigr[ \\phi_{1,M}(u) \\bigl]\n    &= \\text{Var}\\Bigr[ \\frac{1}{M}\\sum_{m=1}^M e^{uX_m} \\Bigl] \\\\\n    &= \\frac{1}{M^2}\\text{Var}\\Bigr[\\sum_{m=1}^M e^{uX_m} \\Bigl] \\\\\n    &= \\frac{1}{M}\\text{Var}\\bigr[e^{uX} \\bigl] \\\\\n    &= \\frac{1}{M} \\Bigr[ \\mathbb{E}\\bigr[(e^{uX})^2 \\bigl] - \\mathbb{E}[e^{uX}]^2   \\Bigl] \\\\\n    &= \\frac{1}{M} \\Bigr[ \\mathbb{E}\\bigr[e^{2uX} \\bigl] - \\mathbb{E}[e^{uX}]^2   \\Bigl] \\\\\n  \\text{(parte 1)}  &= \\frac{1}{M} \\Bigr[ e^{2u^2\\sigma^2} - e^{u^2\\sigma^2} \\Bigl] \\\\\n    &= \\frac{1}{M} \\Bigr[ e^{u^2\\sigma^2}(e^{u^2\\sigma^2} - 1) \\Bigl]\n\\end{aligned}\n\\]\n\n\n2.2.2 Parte b: Estimador en dos etapas",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Problema II</span>"
     ]

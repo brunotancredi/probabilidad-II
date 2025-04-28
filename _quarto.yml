@@ -11,6 +11,7 @@ book:
     - index.qmd
     - problema_I.qmd
     - problema_II.qmd
+    - problema_III.qmd
     
 bibliography: references.bib
 

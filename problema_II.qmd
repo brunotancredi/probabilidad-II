@@ -8,19 +8,23 @@ $$
 
 de una variable aleatoria $X\sim N(0,\sigma^{2})$ utilizando una muestra de tamaño M de copias i.i.d. de X. El parámetro $\sigma^{2}$ es desconocido.
 
-1.  Demostrar que para $X\sim N(0,\sigma^{2})$ se cumple: $$
+1.  Demostrar que para $X\sim N(0,\sigma^{2})$ se cumple: 
+    $$
       \mathbb{E}[e^{uX}]=e^{\sigma^{2}u^{2}/2}
     $$
 
 2.  Comparar la precisión de los siguientes dos estimadores de $\phi_{X}(u)$:\
-    ***Estimador directo:*** $$
+    ***Estimador directo:*** 
+    $$
       \phi_{1,M}(u):=\frac{1}{M}\sum_{m=1}^{M}e^{uX_{m}}.
-    $$ ***Estimador en dos etapas:***
-
-    a)  Estimar $\sigma^{2}$ mediante: $$
+    $$ 
+    ***Estimador en dos etapas:***
+    a)  Estimar $\sigma^{2}$ mediante: 
+        $$
            \sigma_{M}^{2}=\frac{1}{M-1}\sum_{m=1}^{M}(X_{m}-\bar{X})^{2}
         $$
-    b)  Construir el estimador \`plug-in\` de $\phi_{X}(u)$ $$
+    b)  Construir el estimador `plug-in` de $\phi_{X}(u)$ 
+        $$
           \phi_{2,M}(u):=e^{\frac{u^{2}}{2}\sigma_{M}^{2}}
         $$
 
@@ -48,5 +52,31 @@ Construir intervalos de confianza asintóticos para ambos estimadores de $\phi_{
 
 \end{aligned}
 
-
 ## Parte 2
+
+### Parte a: Estimador directo
+
+Verificamos que el indicador sea insesgado
+
+$$    
+\mathbb{E} \bigr[ \phi_{1,M}(u) \bigl]
+    = \mathbb{E} \Bigr[ \frac{1}{M}\sum_{m=1}^M e^{uX_m} \Bigl] \quad 
+    \overset{\text{linealidad}}{=} \frac{1}{M}M\mathbb{E}\bigr[ e^{uX} \bigl] \quad 
+    \overset{\text{parte 1}}{=} e^\frac{u^2\sigma^2}{2}
+$$
+Estudiamos su varianza
+
+$$
+\begin{aligned}
+  \text{Var} \bigr[ \phi_{1,M}(u) \bigl] 
+    &= \text{Var}\Bigr[ \frac{1}{M}\sum_{m=1}^M e^{uX_m} \Bigl] \\
+    &= \frac{1}{M^2}\text{Var}\Bigr[\sum_{m=1}^M e^{uX_m} \Bigl] \\
+    &= \frac{1}{M}\text{Var}\bigr[e^{uX} \bigl] \\
+    &= \frac{1}{M} \Bigr[ \mathbb{E}\bigr[(e^{uX})^2 \bigl] - \mathbb{E}[e^{uX}]^2   \Bigl] \\
+    &= \frac{1}{M} \Bigr[ \mathbb{E}\bigr[e^{2uX} \bigl] - \mathbb{E}[e^{uX}]^2   \Bigl] \\
+  \text{(parte 1)}  &= \frac{1}{M} \Bigr[ e^{2u^2\sigma^2} - e^{u^2\sigma^2} \Bigl] \\
+    &= \frac{1}{M} \Bigr[ e^{u^2\sigma^2}(e^{u^2\sigma^2} - 1) \Bigl] 
+\end{aligned}
+$$
+
+### Parte b: Estimador en dos etapas
