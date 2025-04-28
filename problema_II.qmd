@@ -28,7 +28,6 @@ Construir intervalos de confianza asintóticos para ambos estimadores de $\phi_{
 
 ## Parte 1
 
-$$
 \begin{aligned}
 
 \mathbb{E} \left[ e^{uX} \right] 
@@ -48,6 +47,6 @@ $$
 &= e^\frac{u^2\sigma^2}{2}
 
 \end{aligned}
-$$
+
 
 ## Parte 2

@@ -44,7 +44,7 @@
     "href": "problema_II.html",
     "title": "2  Problema II",
     "section": "",
-    "text": "2.1 Parte 1\n$$",
+    "text": "2.1 Parte 1",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Problema II</span>"
     ]
@@ -54,7 +54,7 @@
     "href": "problema_II.html#parte-1",
     "title": "2  Problema II",
     "section": "",
-    "text": "$$\n\\[\\begin{aligned}\n\n\\mathbb{E} \\left[ e^{uX} \\right]\n\n&= \\int_{-\\infty}^{+\\infty} e^{ux}\\frac{1}{\\sqrt{2\\pi\\sigma^2}}e^{\\frac{-x^2}{2\\sigma^2}}dx \\\\\n\n&= \\int_{-\\infty}^{+\\infty} \\frac{1}{\\sqrt{2\\pi\\sigma^2}}e^{\\frac{-1}{2\\sigma^2}[x^2 - 2\\sigma^2ux]}dx \\\\\n\n&= \\int_{-\\infty}^{+\\infty} \\frac{1}{\\sqrt{2\\pi\\sigma^2}}e^{\\frac{-1}{2\\sigma^2}[x^2 - 2\\sigma^2ux + (\\sigma^2u)^2 - (\\sigma^2u)^2]} dx \\\\\n\n&=  \\int_{-\\infty}^{+\\infty} \\frac{1}{\\sqrt{2\\pi\\sigma^2}}e^{\\frac{-1}{2\\sigma^2}[(x -u\\sigma^2)^2 -(u\\sigma^2)^2]}dx \\\\\n\n&= e^\\frac{(u\\sigma^2)^2}{2\\sigma^2}\\int_{-\\infty}^{+\\infty}\\frac{1}{\\sqrt{2\\pi\\sigma^2}}e^\\frac{-(x-u\\sigma^2)^2}{2\\sigma^2}\\\\\n\n&\\text{Lo que nos queda dentro de la integral es la densidad de una } \\mathcal{N}(u\\sigma^2, \\sigma^2) \\text{ por lo que integra 1} \\\\\n\n&= e^\\frac{u^2\\sigma^2}{2}\n\n\\end{aligned}\\]",
+    "text": "\\[\\begin{aligned}\n\n\\mathbb{E} \\left[ e^{uX} \\right]\n\n&= \\int_{-\\infty}^{+\\infty} e^{ux}\\frac{1}{\\sqrt{2\\pi\\sigma^2}}e^{\\frac{-x^2}{2\\sigma^2}}dx \\\\\n\n&= \\int_{-\\infty}^{+\\infty} \\frac{1}{\\sqrt{2\\pi\\sigma^2}}e^{\\frac{-1}{2\\sigma^2}[x^2 - 2\\sigma^2ux]}dx \\\\\n\n&= \\int_{-\\infty}^{+\\infty} \\frac{1}{\\sqrt{2\\pi\\sigma^2}}e^{\\frac{-1}{2\\sigma^2}[x^2 - 2\\sigma^2ux + (\\sigma^2u)^2 - (\\sigma^2u)^2]} dx \\\\\n\n&=  \\int_{-\\infty}^{+\\infty} \\frac{1}{\\sqrt{2\\pi\\sigma^2}}e^{\\frac{-1}{2\\sigma^2}[(x -u\\sigma^2)^2 -(u\\sigma^2)^2]}dx \\\\\n\n&= e^\\frac{(u\\sigma^2)^2}{2\\sigma^2}\\int_{-\\infty}^{+\\infty}\\frac{1}{\\sqrt{2\\pi\\sigma^2}}e^\\frac{-(x-u\\sigma^2)^2}{2\\sigma^2}\\\\\n\n&\\text{Lo que nos queda dentro de la integral es la densidad de una } \\mathcal{N}(u\\sigma^2, \\sigma^2) \\text{ por lo que integra 1} \\\\\n\n&= e^\\frac{u^2\\sigma^2}{2}\n\n\\end{aligned}\\]",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Problema II</span>"
     ]
