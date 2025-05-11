@@ -1,3 +1,110 @@
 # Problema III
 
-![](consignas/problemaIII.png)
+Aplicación de la Ley Fuerte de los Grandes Números de Kolmogorov (ítems (i) y (ii))
+
+Sea $f: [0,1] \to [0,1]$ una función continua.
+
+**(i)** Sean $\{\xi_m\}_{m \geq 1}$ una sucesión de variables aleatorias i.i.d., con $\xi_1 \sim \text{Uniforme}[0,1]$, y se definen las variables aleatorias $X_m := f(\xi_m)$, $m \geq 1$.  
+Demostrar que:  
+$$
+\overline{X}_M := \frac{1}{M} \sum_{m=1}^{M} X_m \xrightarrow[M \to \infty]{c.s.} \int_0^1 f(t) \, dt.
+$$
+
+**(ii)** Se define la sucesión de variables aleatorias $\{Y_m := \mathbb{I}_{\{f(\xi_m) \geq U_m\}}\}_{m \geq 1}$, donde  
+$\{\xi_m\}$ y $\{U_m\}$ son v.a. i.i.d., con $\xi_1 \sim \text{Uniforme}[0,1]$ y $U_1 \sim \text{Uniforme}[0,1]$.  
+
+Demostrar que:  
+
+$$
+\overline{Y}_M := \frac{1}{M} \sum_{m=1}^{M} Y_m \xrightarrow[M \to \infty]{c.s.} \int_0^1 f(t) \, dt.
+$$
+
+**(iii)** Calcular $\operatorname{Var}(\overline{X}_M)$ y $\operatorname{Var}(\overline{Y}_M)$.
+
+**(iv)** Elegir una función continua $f: [0,1] \to [0,1]$. Escribir un programa en **R** para analizar la distribución límite de las sucesiones:
+
+$$
+\left\{\sqrt{M} \left( \overline{X}_M - \int_0^1 f(t) \, dt \right) \right\}_{M \geq 1}, \quad
+\left\{\sqrt{M} \left( \overline{Y}_M - \int_0^1 f(t) \, dt \right) \right\}_{M \geq 1}.
+$$
+
+## Parte 1
+
+Se recuerda el enunciado de la **Ley Fuerte de los Grandes Números (LFGN)** de Kolmogorov (ver, por ejemplo, página 295, Teorema 6.1 del libro de Allan Gut (2013), *Probability: A Graduate Course*, segunda edición, Springer Texts in Statistics, Springer, New York [G]):
+
+Sean $X_1, X_2, \ldots$ una sucesión de variables aleatorias independientes e idénticamente distribuidas (i.i.d.).  
+Se considera la sucesión de variables aleatorias:  
+
+$$
+\left\{ \frac{1}{M} S_M := \frac{1}{M} \sum_{m=1}^{M} X_m \right\}_{M \geq 1}.
+$$
+
+Si $\mathbb{E}[|X_1|] < \infty$ y $\mathbb{E}[X_1] = \mu$, entonces:
+
+$$
+\frac{S_M}{M} \xrightarrow[M \to \infty]{c.s.} \mu.
+$$
+
+
+## Parte 2
+
+Verificamos que se cumple la condición suficiente de la Ley Fuerte de los Grandes Números de Kolmogorov:
+
+$$
+\begin{aligned}
+E \vert Y_1 \vert  
+&= E \vert \mathbb{I}_{\{f(\xi_1) \geq \,U_1\}} \vert 
+=  E \, \mathbb{I}_{\{f(\xi_1) \geq \,U_1\}} 
+= \int_{\mathbb{R}^{2}}  \mathbb{I}_{\{f(y) \geq \,x\}} \, d F_{(\xi_1 , U_1)}(y,x) \\
+&= \text{(por independencia)} = \int_{\mathbb{R}} \int_{\mathbb{R}}  \mathbb{I}_{\{f(y) \geq \,x\}} \, d F_{\xi_1}(y) \, d F_{U_1}(x) \\           
+&= \int_{\mathbb{R}} \int_{\mathbb{R}}  \mathbb{I}_{\{f(y) \geq \,x\}} \, f_{U_1}(x) \, dx \, d F_{\xi_1}(y) \\
+&= \int_{\mathbb{R}} \int_{\mathbb{R}} \mathbb{I}_{\{0 \leq \,x \leq f(y)\}} \, dx \, d F_{\xi_1}(y) \\  
+&= \int_{\mathbb{R}}  f(y) \, d F_{\xi_1}(y) = \int_{\mathbb{R}}  f(y) f_{\xi_1}(y) \, dy = \int_{[0,1]} f(y) \, dy \leq 1 < \infty \,.
+\end{aligned}
+$$
+
+Entonces, por el teorema LFGN de Kolmogorov, queda probado que:
+
+$$
+\frac{1}{M} \sum_{m=1}^{M} Y_m\, \xrightarrow[M \to \infty]{c.s.} \int_{0}^{1} f(t) \, dt.
+$$
+
+## Parte 3
+
+$$
+\begin{aligned}
+Var(\overline{X}_M) 
+&= \text{(por independencia e idéntica distribución)} 
+= \frac{1}{M}Var(X_1) \\
+&= \frac{1}{M} \left\{  \mathbb{E}(X_1^{2}) - (\mathbb{E}[X_1])^{2} \right\} \,.
+\end{aligned}
+$$
+
+Se observa que 
+$$
+\mathbb{E}(X_1^{2}) = \mathbb{E}(f(\xi_1)^{2}) = \int_{\mathbb{R}} f(x)^{2} \, dF_{\xi_1}(x) = \int_{[0,1]} f(x)^{2} \, dx.
+$$
+
+Por otra parte,
+
+$$
+\begin{aligned}
+Var(\overline{Y}_M) 
+&= \text{(por i.i.d.)} = \frac{1}{M} Var(Y_1) 
+= \frac{1}{M} \left\{ \mathbb{E}(Y_1^{2}) - (\mathbb{E}[Y_1])^{2} \right\} \,.
+\end{aligned}
+$$
+
+Se observa que 
+$$
+\mathbb{E}(Y_1^{2}) = \mathbb{E}(\mathbb{I}_{\{f(\xi_1) \geq U_1\}}^{2}) = \mathbb{E}(\mathbb{I}_{\{f(\xi_1) \geq U_1\}}) = \int_{[0,1]} f(y) \, dy.
+$$
+
+Dado que $f(x) \in [0,1]$, se cumple que $f(x)^{2} \leq f(x)$ para todo $x \in [0,1]$.  
+Por lo tanto:
+
+$$
+\int_{0}^{1} f(x)^2 \, dx \leq \int_{0}^{1} f(x) \, dx 
+\implies \text{Var}(\overline{X}_M) \leq \text{Var}(\overline{Y}_M).
+$$
+

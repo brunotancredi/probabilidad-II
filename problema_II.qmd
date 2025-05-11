@@ -80,3 +80,43 @@ $$
 $$
 
 ### Parte b: Estimador en dos etapas
+
+Para estudiar la distribución asintótica del estimador $\phi_{2,M}(u)$ de $E\left[e^{uX}\right] = e^{\frac{u^2}{2} \sigma^2}$. utilizaremos el siguiente teorema (denominado `método delta`): 
+
+Si
+
+$$
+\sqrt{M}(T_M - \theta) \xrightarrow[M \to \infty]{d} Y \quad Y \sim N(0, \tau^2),
+$$
+
+entonces
+
+$$
+\sqrt{M}\left[f(T_M) - f(\theta)\right] \xrightarrow[M \to \infty]{d} W \quad W \sim N\left(0, \tau^2 [f^{\prime}(\theta)]^2\right),
+$$
+
+siempre que $f^{\prime}(\theta)$ exista y sea distinta de cero.
+
+En este ejercicio: 
+
+$$
+\begin{aligned}
+&\bullet \quad T_M := \sigma^2_M, \quad \theta = \sigma^{2}, \quad \text{y} \quad 
+\sqrt{M}(\sigma^2_M - \sigma^{2}) \xrightarrow[M \to \infty]{d} Y, \quad 
+Y \sim \mathcal{N}(0, 2 \sigma^{4}); \\
+&\bullet \quad \phi_{2,M}(u) := e^{\frac{u^2}{2} \sigma^2_M} = f(\sigma^2_M), \quad \text{y} \quad 
+f^{\prime}(\sigma^2) = \frac{u^{2}}{2} e^{\frac{u^{2}}{2} \sigma^2}.
+\end{aligned}
+$$
+
+
+Por lo tanto, $\sqrt{M} \, \left[\phi_{2,M}(u) -  E\left[e^{uX}\right] \right] \xrightarrow[M \to \infty]{d} W \,,  \: W \sim N(0, 2 \sigma^{4} \frac{u^{4}}{4} e^{u^2 \sigma^2}).$ 
+
+Si consideramos el desarrollo $e^{y} = 1 + y + \frac{y^{2}}{2} +  \cdots$, con $y = u^2 \sigma^2$, se obtiene 
+$e^{u^2\sigma^2} - 1 = u^2 \sigma^2 +  \frac{(u^2 \sigma^2)^{2}}{2} + \cdots$.
+
+Finalmente, observamos que
+
+$$
+Var(e^{uX}) =  e^{u^2 \sigma^2} (  e^{u^2 \sigma^2} -1) >  e^{u^2 \sigma^2} \left( u^2 \sigma^2  + \frac{(u^2 \sigma^2)^2}{2}  \right) > e^{u^2 \sigma^2} \frac{(u^2 \sigma^2)^2}{2} 
+$$.

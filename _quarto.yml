@@ -23,8 +23,6 @@ format:
       macros: {}
       options:
         scale: 3
-  pdf:
-    documentclass: scrreprt
 
 editor: visual
 

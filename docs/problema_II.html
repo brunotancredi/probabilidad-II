@@ -272,6 +272,32 @@ window.Quarto = {
 </section>
 <section id="parte-b-estimador-en-dos-etapas" class="level3" data-number="2.2.2">
 <h3 data-number="2.2.2" class="anchored" data-anchor-id="parte-b-estimador-en-dos-etapas"><span class="header-section-number">2.2.2</span> Parte b: Estimador en dos etapas</h3>
+<p>Para estudiar la distribución asintótica del estimador <span class="math inline">\(\phi_{2,M}(u)\)</span> de <span class="math inline">\(E\left[e^{uX}\right] = e^{\frac{u^2}{2} \sigma^2}\)</span>. utilizaremos el siguiente teorema (denominado <code>método delta</code>):</p>
+<p>Si</p>
+<p><span class="math display">\[
+\sqrt{M}(T_M - \theta) \xrightarrow[M \to \infty]{d} Y \quad Y \sim N(0, \tau^2),
+\]</span></p>
+<p>entonces</p>
+<p><span class="math display">\[
+\sqrt{M}\left[f(T_M) - f(\theta)\right] \xrightarrow[M \to \infty]{d} W \quad W \sim N\left(0, \tau^2 [f^{\prime}(\theta)]^2\right),
+\]</span></p>
+<p>siempre que <span class="math inline">\(f^{\prime}(\theta)\)</span> exista y sea distinta de cero.</p>
+<p>En este ejercicio:</p>
+<p><span class="math display">\[
+\begin{aligned}
+&amp;\bullet \quad T_M := \sigma^2_M, \quad \theta = \sigma^{2}, \quad \text{y} \quad
+\sqrt{M}(\sigma^2_M - \sigma^{2}) \xrightarrow[M \to \infty]{d} Y, \quad
+Y \sim \mathcal{N}(0, 2 \sigma^{4}); \\
+&amp;\bullet \quad \phi_{2,M}(u) := e^{\frac{u^2}{2} \sigma^2_M} = f(\sigma^2_M), \quad \text{y} \quad
+f^{\prime}(\sigma^2) = \frac{u^{2}}{2} e^{\frac{u^{2}}{2} \sigma^2}.
+\end{aligned}
+\]</span></p>
+<p>Por lo tanto, <span class="math inline">\(\sqrt{M} \, \left[\phi_{2,M}(u) -  E\left[e^{uX}\right] \right] \xrightarrow[M \to \infty]{d} W \,,  \: W \sim N(0, 2 \sigma^{4} \frac{u^{4}}{4} e^{u^2 \sigma^2}).\)</span></p>
+<p>Si consideramos el desarrollo <span class="math inline">\(e^{y} = 1 + y + \frac{y^{2}}{2} +  \cdots\)</span>, con <span class="math inline">\(y = u^2 \sigma^2\)</span>, se obtiene <span class="math inline">\(e^{u^2\sigma^2} - 1 = u^2 \sigma^2 +  \frac{(u^2 \sigma^2)^{2}}{2} + \cdots\)</span>.</p>
+<p>Finalmente, observamos que</p>
+<p><span class="math display">\[
+Var(e^{uX}) =  e^{u^2 \sigma^2} (  e^{u^2 \sigma^2} -1) &gt;  e^{u^2 \sigma^2} \left( u^2 \sigma^2  + \frac{(u^2 \sigma^2)^2}{2}  \right) &gt; e^{u^2 \sigma^2} \frac{(u^2 \sigma^2)^2}{2}
+\]</span>.</p>
 
 
 </section>
