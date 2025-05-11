@@ -202,19 +202,19 @@ window.Quarto = {
 <p><strong>(i)</strong> Sean <span class="math inline">\(\{\xi_m\}_{m \geq 1}\)</span> una sucesión de variables aleatorias i.i.d., con <span class="math inline">\(\xi_1 \sim \text{Uniforme}[0,1]\)</span>, y se definen las variables aleatorias <span class="math inline">\(X_m := f(\xi_m)\)</span>, <span class="math inline">\(m \geq 1\)</span>.<br>
 Demostrar que:<br>
 <span class="math display">\[
-\overline{X}_M := \frac{1}{M} \sum_{m=1}^{M} X_m \xrightarrow[M \to \infty]{c.s.} \int_0^1 f(t) \, dt.
+\bar{X}_M := \frac{1}{M} \sum_{m=1}^{M} X_m \xrightarrow[M \to \infty]{c.s.} \int_0^1 f(t) \, dt.
 \]</span></p>
 <p><strong>(ii)</strong> Se define la sucesión de variables aleatorias <span class="math inline">\(\{Y_m := \mathbb{I}_{\{f(\xi_m) \geq U_m\}}\}_{m \geq 1}\)</span>, donde<br>
 <span class="math inline">\(\{\xi_m\}\)</span> y <span class="math inline">\(\{U_m\}\)</span> son v.a. i.i.d., con <span class="math inline">\(\xi_1 \sim \text{Uniforme}[0,1]\)</span> y <span class="math inline">\(U_1 \sim \text{Uniforme}[0,1]\)</span>.</p>
 <p>Demostrar que:</p>
 <p><span class="math display">\[
-\overline{Y}_M := \frac{1}{M} \sum_{m=1}^{M} Y_m \xrightarrow[M \to \infty]{c.s.} \int_0^1 f(t) \, dt.
+\bar{Y}_M := \frac{1}{M} \sum_{m=1}^{M} Y_m \xrightarrow[M \to \infty]{c.s.} \int_0^1 f(t) \, dt.
 \]</span></p>
-<p><strong>(iii)</strong> Calcular <span class="math inline">\(\operatorname{Var}(\overline{X}_M)\)</span> y <span class="math inline">\(\operatorname{Var}(\overline{Y}_M)\)</span>.</p>
+<p><strong>(iii)</strong> Calcular <span class="math inline">\(\operatorname{Var}(\bar{X}_M)\)</span> y <span class="math inline">\(\operatorname{Var}(\bar{Y}_M)\)</span>.</p>
 <p><strong>(iv)</strong> Elegir una función continua <span class="math inline">\(f: [0,1] \to [0,1]\)</span>. Escribir un programa en <strong>R</strong> para analizar la distribución límite de las sucesiones:</p>
 <p><span class="math display">\[
-\left\{\sqrt{M} \left( \overline{X}_M - \int_0^1 f(t) \, dt \right) \right\}_{M \geq 1}, \quad
-\left\{\sqrt{M} \left( \overline{Y}_M - \int_0^1 f(t) \, dt \right) \right\}_{M \geq 1}.
+\left\{\sqrt{M} \left( \bar{X}_M - \int_0^1 f(t) \, dt \right) \right\}_{M \geq 1}, \quad
+\left\{\sqrt{M} \left( \bar{Y}_M - \int_0^1 f(t) \, dt \right) \right\}_{M \geq 1}.
 \]</span></p>
 <section id="parte-1" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="parte-1"><span class="header-section-number">3.1</span> Parte 1</h2>
@@ -227,6 +227,21 @@ Se considera la sucesión de variables aleatorias:</p>
 <p>Si <span class="math inline">\(\mathbb{E}[|X_1|] &lt; \infty\)</span> y <span class="math inline">\(\mathbb{E}[X_1] = \mu\)</span>, entonces:</p>
 <p><span class="math display">\[
 \frac{S_M}{M} \xrightarrow[M \to \infty]{c.s.} \mu.
+\]</span></p>
+<p>Verificamos que se cumple la condición suficiente de la LFGN de Kolmogorov:</p>
+<p><span class="math display">\[
+\begin{aligned}
+\mathbb{E} \vert X_1 \vert  
+&amp;= \mathbb{E} \vert f(\xi_1) \vert  
+= \mathbb{E} \left[f(\xi_1)\right]
+= \int_{\mathbb{R}} f(x) \, dF_{\xi_1}(x)
+= \int_{\mathbb{R}} f(x) f_{\xi_1}(x) \, dx \\
+&amp;= \int_{[0,1]} f(x) \, dx \leq 1 &lt; \infty.
+\end{aligned}
+\]</span></p>
+<p>Entonces, por el teorema LFGN de Kolmogorov, queda probado que:</p>
+<p><span class="math display">\[
+\frac{1}{M} \sum_{m=1}^{M} X_m \xrightarrow[M \to \infty]{c.s.} \int_{0}^{1} f(t) \, dt.
 \]</span></p>
 </section>
 <section id="parte-2" class="level2" data-number="3.2">
@@ -253,7 +268,7 @@ E \vert Y_1 \vert
 <h2 data-number="3.3" class="anchored" data-anchor-id="parte-3"><span class="header-section-number">3.3</span> Parte 3</h2>
 <p><span class="math display">\[
 \begin{aligned}
-Var(\overline{X}_M)
+Var(\bar{X}_M)
 &amp;= \text{(por independencia e idéntica distribución)}
 = \frac{1}{M}Var(X_1) \\
 &amp;= \frac{1}{M} \left\{  \mathbb{E}(X_1^{2}) - (\mathbb{E}[X_1])^{2} \right\} \,.
@@ -265,7 +280,7 @@ Var(\overline{X}_M)
 <p>Por otra parte,</p>
 <p><span class="math display">\[
 \begin{aligned}
-Var(\overline{Y}_M)
+Var(\bar{Y}_M)
 &amp;= \text{(por i.i.d.)} = \frac{1}{M} Var(Y_1)
 = \frac{1}{M} \left\{ \mathbb{E}(Y_1^{2}) - (\mathbb{E}[Y_1])^{2} \right\} \,.
 \end{aligned}
@@ -277,7 +292,7 @@ Var(\overline{Y}_M)
 Por lo tanto:</p>
 <p><span class="math display">\[
 \int_{0}^{1} f(x)^2 \, dx \leq \int_{0}^{1} f(x) \, dx
-\implies \text{Var}(\overline{X}_M) \leq \text{Var}(\overline{Y}_M).
+\implies \text{Var}(\bar{X}_M) \leq \text{Var}(\bar{Y}_M).
 \]</span></p>
 
 

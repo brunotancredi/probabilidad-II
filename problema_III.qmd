@@ -7,7 +7,7 @@ Sea $f: [0,1] \to [0,1]$ una función continua.
 **(i)** Sean $\{\xi_m\}_{m \geq 1}$ una sucesión de variables aleatorias i.i.d., con $\xi_1 \sim \text{Uniforme}[0,1]$, y se definen las variables aleatorias $X_m := f(\xi_m)$, $m \geq 1$.  
 Demostrar que:  
 $$
-\overline{X}_M := \frac{1}{M} \sum_{m=1}^{M} X_m \xrightarrow[M \to \infty]{c.s.} \int_0^1 f(t) \, dt.
+\bar{X}_M := \frac{1}{M} \sum_{m=1}^{M} X_m \xrightarrow[M \to \infty]{c.s.} \int_0^1 f(t) \, dt.
 $$
 
 **(ii)** Se define la sucesión de variables aleatorias $\{Y_m := \mathbb{I}_{\{f(\xi_m) \geq U_m\}}\}_{m \geq 1}$, donde  
@@ -16,16 +16,16 @@ $\{\xi_m\}$ y $\{U_m\}$ son v.a. i.i.d., con $\xi_1 \sim \text{Uniforme}[0,1]$ y
 Demostrar que:  
 
 $$
-\overline{Y}_M := \frac{1}{M} \sum_{m=1}^{M} Y_m \xrightarrow[M \to \infty]{c.s.} \int_0^1 f(t) \, dt.
+\bar{Y}_M := \frac{1}{M} \sum_{m=1}^{M} Y_m \xrightarrow[M \to \infty]{c.s.} \int_0^1 f(t) \, dt.
 $$
 
-**(iii)** Calcular $\operatorname{Var}(\overline{X}_M)$ y $\operatorname{Var}(\overline{Y}_M)$.
+**(iii)** Calcular $\operatorname{Var}(\bar{X}_M)$ y $\operatorname{Var}(\bar{Y}_M)$.
 
 **(iv)** Elegir una función continua $f: [0,1] \to [0,1]$. Escribir un programa en **R** para analizar la distribución límite de las sucesiones:
 
 $$
-\left\{\sqrt{M} \left( \overline{X}_M - \int_0^1 f(t) \, dt \right) \right\}_{M \geq 1}, \quad
-\left\{\sqrt{M} \left( \overline{Y}_M - \int_0^1 f(t) \, dt \right) \right\}_{M \geq 1}.
+\left\{\sqrt{M} \left( \bar{X}_M - \int_0^1 f(t) \, dt \right) \right\}_{M \geq 1}, \quad
+\left\{\sqrt{M} \left( \bar{Y}_M - \int_0^1 f(t) \, dt \right) \right\}_{M \geq 1}.
 $$
 
 ## Parte 1
@@ -45,6 +45,24 @@ $$
 \frac{S_M}{M} \xrightarrow[M \to \infty]{c.s.} \mu.
 $$
 
+Verificamos que se cumple la condición suficiente de la LFGN de Kolmogorov:
+
+$$
+\begin{aligned}
+\mathbb{E} \vert X_1 \vert  
+&= \mathbb{E} \vert f(\xi_1) \vert  
+= \mathbb{E} \left[f(\xi_1)\right] 
+= \int_{\mathbb{R}} f(x) \, dF_{\xi_1}(x) 
+= \int_{\mathbb{R}} f(x) f_{\xi_1}(x) \, dx \\
+&= \int_{[0,1]} f(x) \, dx \leq 1 < \infty.
+\end{aligned}
+$$
+
+Entonces, por el teorema LFGN de Kolmogorov, queda probado que:
+
+$$
+\frac{1}{M} \sum_{m=1}^{M} X_m \xrightarrow[M \to \infty]{c.s.} \int_{0}^{1} f(t) \, dt.
+$$
 
 ## Parte 2
 
@@ -73,7 +91,7 @@ $$
 
 $$
 \begin{aligned}
-Var(\overline{X}_M) 
+Var(\bar{X}_M) 
 &= \text{(por independencia e idéntica distribución)} 
 = \frac{1}{M}Var(X_1) \\
 &= \frac{1}{M} \left\{  \mathbb{E}(X_1^{2}) - (\mathbb{E}[X_1])^{2} \right\} \,.
@@ -89,7 +107,7 @@ Por otra parte,
 
 $$
 \begin{aligned}
-Var(\overline{Y}_M) 
+Var(\bar{Y}_M) 
 &= \text{(por i.i.d.)} = \frac{1}{M} Var(Y_1) 
 = \frac{1}{M} \left\{ \mathbb{E}(Y_1^{2}) - (\mathbb{E}[Y_1])^{2} \right\} \,.
 \end{aligned}
@@ -105,6 +123,6 @@ Por lo tanto:
 
 $$
 \int_{0}^{1} f(x)^2 \, dx \leq \int_{0}^{1} f(x) \, dx 
-\implies \text{Var}(\overline{X}_M) \leq \text{Var}(\overline{Y}_M).
+\implies \text{Var}(\bar{X}_M) \leq \text{Var}(\bar{Y}_M).
 $$
 
