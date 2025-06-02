@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>4&nbsp; Parcial – Probabilidad II - Práctico</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./problema_III.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="custom.css">
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./parcial.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Parcial</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Probabilidad II - Práctico</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Presentación</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./problema_I.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Problema I</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./problema_II.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Problema II</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./problema_III.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Problema III</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./parcial.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Parcial</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#ejercicio-1-6-puntos" id="toc-ejercicio-1-6-puntos" class="nav-link active" data-scroll-target="#ejercicio-1-6-puntos"><span class="header-section-number">4.1</span> Ejercicio 1 (6 puntos)</a>
+  <ul class="collapse">
+  <li><a href="#solución" id="toc-solución" class="nav-link" data-scroll-target="#solución">Solución</a></li>
+  </ul></li>
+  <li><a href="#ejercicio-2-9-puntos" id="toc-ejercicio-2-9-puntos" class="nav-link" data-scroll-target="#ejercicio-2-9-puntos"><span class="header-section-number">4.2</span> Ejercicio 2 (9 puntos)</a>
+  <ul class="collapse">
+  <li><a href="#solución-1" id="toc-solución-1" class="nav-link" data-scroll-target="#solución-1">Solución</a></li>
+  </ul></li>
+  <li><a href="#ejercicio-3-5-puntos" id="toc-ejercicio-3-5-puntos" class="nav-link" data-scroll-target="#ejercicio-3-5-puntos"><span class="header-section-number">4.3</span> Ejercicio 3 (5 puntos)</a>
+  <ul class="collapse">
+  <li><a href="#solución-2" id="toc-solución-2" class="nav-link" data-scroll-target="#solución-2">Solución</a></li>
+  </ul></li>
+  <li><a href="#ejercicio-4-10-puntos" id="toc-ejercicio-4-10-puntos" class="nav-link" data-scroll-target="#ejercicio-4-10-puntos"><span class="header-section-number">4.4</span> Ejercicio 4 (10 puntos)</a>
+  <ul class="collapse">
+  <li><a href="#solución-3" id="toc-solución-3" class="nav-link" data-scroll-target="#solución-3">Solución</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Parcial</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="ejercicio-1-6-puntos" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="ejercicio-1-6-puntos"><span class="header-section-number">4.1</span> Ejercicio 1 (6 puntos)</h2>
+<p>Un jugador con un capital inicial de, por ejemplo, $1000, realiza sus apuestas a lo largo de una sucesión de pruebas independientes con la misma probabilidad de éxito <span class="math inline">\(0 &lt; p &lt; 1\)</span>. Al final de cada prueba, el jugador tendrá un capital dado por el doble de lo anterior, o la mitad, dependiendo de si el resultado de la prueba es un éxito o un fracaso.</p>
+<ol type="1">
+<li>Especificar una sucesión <span class="math inline">\(\{X_n\}_{n \geq 1}\)</span> de variables aleatorias reales, tal que <span class="math inline">\(X_n\)</span> represente el capital del jugador luego de la prueba n-ésima.</li>
+<li>Hallar el valor esperado de <span class="math inline">\(X_n\)</span>, y calcular el límite de <span class="math inline">\(\mathbb{E}(X_n)\)</span> cuando <span class="math inline">\(n \to \infty\)</span>.</li>
+<li>Probar que si <span class="math inline">\(p &lt; \frac{1}{2}\)</span> entonces <span class="math inline">\(X_n \xrightarrow[n \to \infty]{c.s.} 0\)</span>.<br>
+<em>Sugerencia</em>: considerar el logaritmo de <span class="math inline">\(X_n\)</span> y emplear la Ley Fuerte de los Grandes Números (LFGN) de Kolmogorov para variables aleatorias i.i.d.</li>
+<li>Comentar los resultados anteriores cuando <span class="math inline">\(\frac{1}{3} &lt; p &lt; \frac{1}{2}\)</span>.</li>
+</ol>
+<section id="solución" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="solución">Solución</h3>
+<ol type="1">
+<li><p>Definimos la sucesión <span class="math inline">\(\{X_n\}_{n \geq 1}\)</span> de variables aleatorias como:</p>
+<p><span class="math display">\[
+X_n = X_0 \cdot 2^{S_n} \quad \text{donde} \quad
+S_n = \sum_{i=1}^n Y_i
+\]</span></p>
+<p>con <span class="math inline">\(X_0 = \text{ capital inicial no aleatorio } = 1000\)</span> y las variables <span class="math inline">\(Y_i\)</span>, independientes, se definen como:</p>
+<p><span class="math display">\[
+Y_i =
+\begin{cases}
++1 &amp; \text{con probabilidad } p \quad (\text{éxito}), \\
+-1 &amp; \text{con probabilidad } 1-p \quad (\text{fracaso})\,.
+\end{cases}
+\]</span></p></li>
+<li><p>Calculamos la esperanza</p>
+<p><span class="math display">\[
+\begin{aligned}
+E[X_n] &amp;= X_0 \cdot \mathbb{E}\left[2^{S_n}\right] \\
+        &amp;= 1000 \cdot \prod_{i=1}^n E\left[2^{Y_i}\right] \quad \text{(por independencia)} \\
+        &amp;= 1000 \cdot \left(2^1 \cdot p + 2^{-1} \cdot (1-p)\right)^n \\
+        &amp;= 1000 \cdot \left(2p + \frac{1}{2}(1-p)\right)^n \\
+        &amp;= 1000 \cdot \left(\frac{3}{2} p + \frac{1}{2}\right)^n \,.
+\end{aligned}
+\]</span></p>
+<p>Se obtiene:</p>
+<p><span class="math display">\[
+\lim_{n \to \infty} E[X_n] =
+\begin{cases}
+\infty &amp; \text{si } \frac{3}{2} p + \frac{1}{2} &gt; 1 \Leftrightarrow p &gt; \frac{1}{3} \\
+0 &amp; \text{si } \frac{3}{2} p + \frac{1}{2} &lt; 1 \Leftrightarrow p &lt; \frac{1}{3} \\
+1000 &amp; \text{si } p = \frac{1}{3} \,.
+\end{cases}
+\]</span></p></li>
+<li><p>Consideremos el logaritmo del capital al cabo de la apuesta n-ésima:</p>
+<p><span class="math display">\[
+\log X_n = \log X_0 + (\log 2) \cdot S_n \,.
+\]</span></p>
+<p>Por la Ley Fuerte de los Grandes Números (LFGN):</p>
+<p><span class="math display">\[
+\frac{S_n}{n} \xrightarrow[n \to \infty]{c.s.} E[Y_1] = 2p - 1 \,.
+\]</span></p>
+<p>Si <span class="math inline">\(p &lt; \frac{1}{2}\)</span>, entonces <span class="math inline">\(2p - 1 &lt; 0\)</span>, y se obtiene:</p>
+<p><span class="math display">\[
+\frac{\log X_n}{n} = \frac{\log X_0}{n} + (\log 2) \cdot \frac{S_n}{n} \xrightarrow[n \to \infty]{c.s.} 0 + (\log 2)(2p - 1) &lt; 0 \,.
+\]</span></p>
+<p>Por lo tanto:</p>
+<p><span class="math display">\[
+\log X_n \xrightarrow[n \to \infty]{c.s.} -\infty \implies X_n \xrightarrow[n \to \infty]{c.s.} 0 \,.
+\]</span></p></li>
+<li><p>En el punto 2. vimos que <span class="math inline">\(\lim_{n \to \infty} E[X_n] = \infty\)</span> si <span class="math inline">\(\frac{3}{2} p + \frac{1}{2} &gt; 1  \Leftrightarrow p &gt; \frac{1}{3} \,\)</span>.<br>
+Por otra parte, en el punto 3, vimos que si <span class="math inline">\(p &lt; \frac{1}{2}\)</span>, entonces <span class="math inline">\(X_n \xrightarrow[n \to \infty]{c.s.} 0 \,.\)</span></p>
+<p>Para <span class="math inline">\(p &lt; \frac{1}{2}\)</span> se observa la ruina casi segura, a pesar del crecimiento del capital esperado para <span class="math inline">\(\frac{1}{3} &lt; p\,.\)</span></p></li>
+</ol>
+</section>
+</section>
+<section id="ejercicio-2-9-puntos" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="ejercicio-2-9-puntos"><span class="header-section-number">4.2</span> Ejercicio 2 (9 puntos)</h2>
+<p><strong>(i)</strong> Determine la esperanza y varianza de una variable aleatoria <span class="math inline">\(X\)</span> con función de distribución</p>
+<p><span class="math display">\[
+F_X(x) = (1 - \varepsilon)\Phi(x) + \varepsilon\Phi\left(\frac{x - \eta}{\tau}\right),
+\]</span></p>
+<p>donde <span class="math inline">\(\Phi(x)\)</span> es la función de distribución de una variable aleatoria <span class="math inline">\(Z \sim \mathcal{N}(0,1)\)</span>.</p>
+<p><strong>(ii)</strong> Escriba un programa en <code>R</code> para estimar, mediante simulación, la probabilidad</p>
+<p><span class="math display">\[
+p = P_{F_X}\left(\frac{\overline{X}_{n} - \mathbb{E}[\overline{X}_{n}]}{\sqrt{\mathrm{Var}[\overline{X}_{n}]}} \leq x\right),
+\]</span></p>
+<p>donde <span class="math inline">\(X_1, X_2, \ldots\)</span> son i.i.d. con función de distribución <span class="math inline">\(F_X\)</span>, para los siguientes casos:</p>
+<ul>
+<li><span class="math inline">\(x = 0, 1, 2\)</span></li>
+<li><span class="math inline">\(\varepsilon = 0.1, 0.2, 0.3\)</span></li>
+<li><span class="math inline">\(n = 50, 100, 150\)</span></li>
+</ul>
+<p>Y tres escenarios distintos de <span class="math inline">\(\eta\)</span> y <span class="math inline">\(\tau\)</span>:</p>
+<ol type="1">
+<li><span class="math inline">\(\eta = 0\)</span>, <span class="math inline">\(\tau = 1, 2, 3\)</span></li>
+<li><span class="math inline">\(\tau = 1\)</span>, <span class="math inline">\(\eta = 0.5, 1, 2\)</span></li>
+<li><span class="math inline">\(\eta = \tau = 0.5, 1, 2\)</span></li>
+</ol>
+<p>Finalmente, compare los resultados con la aproximación normal <span class="math inline">\(\Phi(x)\)</span>.</p>
+<section id="solución-1" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="solución-1">Solución</h3>
+<ol type="1">
+<li>Calculamos esperanza y varianza</li>
+</ol>
+<p><span class="math display">\[
+\begin{align*}
+E [X]  &amp;  = \int_{\mathbb{R}} x d F_X(x) = \int_{\mathbb{R}} x d \left( (1 - \varepsilon)\Phi(x) + \varepsilon\Phi\left(\frac{x - \eta}{\tau}\right)  \right) \\
+&amp;= (1 - \varepsilon) \int_{\mathbb{R}} x d \Phi(x) + \varepsilon  \int_{\mathbb{R}} x  \Phi\left(\frac{x - \eta}{\tau}\right)  =
+0 + \varepsilon  \int_{\mathbb{R}} x  \Phi\left(\frac{x - \eta}{\tau}\right) \\
+&amp;= \left( \text{cambio de variable: }  y = \frac{x - \eta}{\tau} \right) =   \varepsilon  \int_{\mathbb{R}} (y \tau + \eta)   \Phi\left(y \right) = \varepsilon  \eta \,.
+\end{align*}
+\]</span></p>
+<p><span class="math display">\[
+\begin{align*}
+E [X^{2}]  &amp;  = \int_{\mathbb{R}} x^{2} d F_X(x) = \int_{\mathbb{R}} x^{2} d \left( (1 - \varepsilon)\Phi(x) + \varepsilon\Phi\left(\frac{x - \eta}{\tau}\right)  \right) \\
+&amp;= (1 - \varepsilon) \int_{\mathbb{R}} x^{2} d \Phi(x) + \varepsilon  \int_{\mathbb{R}} x^{2}  \Phi\left(\frac{x - \eta}{\tau}\right)  = \\
+&amp;= (1 - \varepsilon) + \varepsilon  \int_{\mathbb{R}} (y \tau + \eta)^{2}   \Phi\left(y \right) = (1 - \varepsilon) + \varepsilon \tau^{2} + \varepsilon \eta^{2}  \,.
+\end{align*}
+\]</span></p>
+<p><span class="math display">\[
+\mathrm{Var}[X] =  (1 - \varepsilon) + \varepsilon \tau^{2} + \varepsilon \eta^{2} - \varepsilon^{2} \eta^{2} \,.
+\]</span></p>
+<ol start="2" type="1">
+<li>Código</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">#Definimos la cantidad de X_n que queremos tomar.</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>M <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>simulacion <span class="ot">&lt;-</span> <span class="cf">function</span>(x, epsilon, n, eta, tau){</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  esperanza  <span class="ot">&lt;-</span> epsilon <span class="sc">*</span> eta <span class="co">#Parte 2.1</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  varianza <span class="ot">&lt;-</span> (<span class="dv">1</span><span class="sc">-</span>epsilon) <span class="sc">+</span> epsilon<span class="sc">*</span>(tau<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> eta<span class="sc">^</span><span class="dv">2</span>) <span class="sc">-</span> (epsilon<span class="sc">*</span>eta)<span class="sc">^</span><span class="dv">2</span> <span class="co">#Parte 2.1</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  pr <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span>M, <span class="cf">function</span>(m){</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="co">#Obtenemos n muestras de la mezcla de normales.</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    muestras <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="dv">1</span><span class="sc">:</span>n, <span class="cf">function</span>(n){</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>      p <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="dv">1</span> , <span class="dv">1</span>, epsilon)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span>(p <span class="sc">==</span> <span class="dv">0</span>){</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>        <span class="fu">rnorm</span>(<span class="dv">1</span>)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>      <span class="cf">else</span>{</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>        <span class="fu">rnorm</span>(<span class="dv">1</span>, eta, tau)</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>      }</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    })</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>    X_techo <span class="ot">&lt;-</span> <span class="fu">sum</span>(muestras)<span class="sc">/</span>n </span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.numeric</span>( (X_techo <span class="sc">-</span> esperanza) <span class="sc">/</span> <span class="fu">sqrt</span>(varianza<span class="sc">/</span>n) <span class="sc">&lt;=</span> x)</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>      <span class="at">x =</span> x,</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>      <span class="at">epsilon =</span> epsilon,</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>      <span class="at">n =</span> n,</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>      <span class="at">eta =</span> eta,</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>      <span class="at">tau =</span> tau,</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>      <span class="at">sim =</span> <span class="fu">sum</span>(pr)<span class="sc">/</span>M,  <span class="co">#Prop de cuantos de los m fueron menor igual a x y cuantos mayor (estimacion prob)</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>      <span class="at">te0 =</span> <span class="fu">pnorm</span>(x)</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="do">###### ARMAMOS LOS DISTINTOS ESCENARIOS #########</span></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="co"># Parametros base</span></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>base <span class="ot">&lt;-</span> <span class="fu">crossing</span>(</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>),</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>  <span class="at">epsilon =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.2</span>, <span class="fl">0.3</span>),</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>  <span class="at">n =</span> <span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">100</span>, <span class="dv">150</span>)</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a><span class="co"># Escenario 1: eta fijo en 0, tau variable</span></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>escenario_1 <span class="ot">&lt;-</span> base <span class="sc">|&gt;</span></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>  <span class="fu">crossing</span>(</span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>    <span class="at">eta =</span> <span class="dv">0</span>,</span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>    <span class="at">tau =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)</span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a><span class="co"># Escenario 2: eta variable, tau fijo en 1</span></span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>escenario_2 <span class="ot">&lt;-</span> base <span class="sc">|&gt;</span></span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>  <span class="fu">crossing</span>(</span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>    <span class="at">eta =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="dv">1</span>, <span class="dv">2</span>),</span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>    <span class="at">tau =</span> <span class="dv">1</span></span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a><span class="co"># Escenario 3: eta = tau = c(0.5,1,2)</span></span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a>escenario_3 <span class="ot">&lt;-</span> base <span class="sc">|&gt;</span></span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a>  <span class="fu">crossing</span>(</span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tibble</span>(</span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a>      <span class="at">eta =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="dv">1</span>, <span class="dv">2</span>),</span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a>      <span class="at">tau =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="dv">1</span>, <span class="dv">2</span>)</span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a><span class="co"># Unir todos los escenarios</span></span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a>escenarios <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(escenario_1, escenario_2, escenario_3)</span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a><span class="do">###################################################################</span></span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a><span class="co">#Obtenemos las simulaciones para los distintos casos.</span></span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a>resultados <span class="ot">&lt;-</span> <span class="fu">pmap</span>(escenarios, simulacion) <span class="sc">|&gt;</span></span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a>                <span class="fu">transpose</span>() <span class="sc">|&gt;</span></span>
+<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a>                <span class="fu">map_df</span>(<span class="sc">~</span> <span class="fu">unlist</span>(.x)) <span class="sc">|&gt;</span></span>
+<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a>                <span class="fu">as.data.frame</span>()</span>
+<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a>escenarios <span class="sc">|&gt;</span> <span class="fu">cbind</span>(resultados)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="ejercicio-3-5-puntos" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="ejercicio-3-5-puntos"><span class="header-section-number">4.3</span> Ejercicio 3 (5 puntos)</h2>
+<p>Sean <span class="math inline">\(X_1, X_2, \ldots\)</span> variables aleatorias i.i.d., y sea <span class="math inline">\(M_n := \max_{1 \leq m \leq n} X_m\)</span> el máximo de las primeras <span class="math inline">\(n\)</span> observaciones. Demuestre que:</p>
+<ol type="1">
+<li>Si <span class="math inline">\(F_{X_1}(x) = (1 - x^{-\alpha}) \mathbb{I}_{\{x \geq 1\}}\)</span>, con <span class="math inline">\(\alpha &gt; 0\)</span>, entonces:</li>
+</ol>
+<p><span class="math display">\[
+P\left(\frac{M_n}{n^{1/\alpha}} \leq y\right) \xrightarrow[n \to \infty]{d} \exp(-y^{-\alpha}), \quad \text{para todo } y &gt; 0.
+\]</span></p>
+<ol start="2" type="1">
+<li>Si <span class="math inline">\(F_{X_1}(x) = (1 - e^{-x}) \mathbb{I}_{\{x \geq 0\}}\)</span>, entonces:</li>
+</ol>
+<p><span class="math display">\[
+P(M_n - \log n \leq y) \xrightarrow[n \to \infty]{d} \exp(-e^{-y}), \quad \text{para todo } y \in \mathbb{R}.
+\]</span></p>
+<section id="solución-2" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="solución-2">Solución</h3>
+<ol type="1">
+<li><p>Por definición del máximo y usando la independencia de las variables:</p>
+<p><span class="math display">\[
+  \begin{align*}
+  P\Bigl(\tfrac{M_n}{n^{1/\alpha}} \le y\Bigr)
+  &amp;= P\bigl(M_n \le y\,n^{1/\alpha}\bigr) \\
+  &amp;= \prod_{i=1}^n P\bigl(X_i \le y\,n^{1/\alpha}\bigr)
+    \quad\text{(por independencia)}\\
+  &amp;= \bigl[F_{X_1}(y\,n^{1/\alpha})\bigr]^n
+  \end{align*}
+  \]</span></p>
+<p>Para <span class="math inline">\(y&gt;0\)</span> y <span class="math inline">\(n\)</span> suficientemente grande <span class="math inline">\((y n^{1/\alpha} \ge1)\)</span>:</p>
+<p><span class="math display">\[
+  F_{X_1}(y\,n^{1/\alpha})
+  =1-\bigl(y\,n^{1/\alpha}\bigr)^{-\alpha}
+  =1-\frac{1}{y^\alpha\,n}\,.
+  \]</span></p>
+<p>Luego:</p>
+<p><span class="math display">\[
+  \begin{align*}
+  \lim_{n\to\infty}P\Bigl(\tfrac{M_n}{n^{1/\alpha}}\le y\Bigr)
+  &amp;=\lim_{n\to\infty}\Bigl(1-\frac{1}{y^\alpha\,n}\Bigr)^n\\
+  &amp;=\exp\Bigl(-\tfrac{1}{y^\alpha}\Bigr)
+    \quad\bigl(\lim_{n\to\infty}(1-\tfrac c n)^n=e^{-c}\bigr)\\
+  &amp;=\exp\bigl(-y^{-\alpha}\bigr)\,.
+  \end{align*}
+  \]</span></p></li>
+<li><p>Por definición del máximo y usando la independencia de las variables:</p>
+<p><span class="math display">\[
+  \begin{align*}
+  P(M_n - \log n \le y)
+  &amp;=P\bigl(M_n \le y+\log n\bigr)\\
+  &amp;=\prod_{i=1}^nP\bigl(X_i\le y+\log n\bigr)
+    \quad\text{(por independencia)}\\
+  &amp;=\bigl[F_{X_1}(y+\log n)\bigr]^n\,.
+  \end{align*}
+  \]</span></p>
+<p>Para <span class="math inline">\(y \in \mathbb{R}\)</span> y <span class="math inline">\(n\)</span> suficientemente grande <span class="math inline">\((y+\log n \ge 0)\)</span>:</p>
+<p><span class="math display">\[
+  \begin{align*}
+  F_{X_1}(y+\log n)
+  &amp;=1-e^{-(y+\log n)}\\
+  &amp;=1-e^{-y}e^{-\log n}\\
+  &amp;=1-\frac{e^{-y}}{n}\,.
+  \end{align*}
+  \]</span></p>
+<p>Luego:</p>
+<p><span class="math display">\[
+  \lim_{n\to\infty}P(M_n-\log n\le y)
+  =\lim_{n\to\infty}\Bigl(1-\frac{e^{-y}}{n}\Bigr)^n
+  =\exp\bigl(-e^{-y}\bigr)\,.
+  \]</span></p></li>
+</ol>
+</section>
+</section>
+<section id="ejercicio-4-10-puntos" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="ejercicio-4-10-puntos"><span class="header-section-number">4.4</span> Ejercicio 4 (10 puntos)</h2>
+<p>Sean <span class="math inline">\(X_1, X_2, \dots\)</span> variables aleatorias i.i.d. positivas con media <span class="math inline">\(\mu\)</span> y varianza <span class="math inline">\(\sigma^2 &lt; \infty\)</span>.</p>
+<ol type="1">
+<li><p>Demostrar que</p>
+<p><span class="math display">\[
+\sqrt{M} \left( \log\overline{X}_M - \log\mu \right) \xrightarrow[M \to \infty]{d} \mathcal{N}\left(0, \frac{\sigma^2}{\mu^2}\right) \equiv \mathcal{N}(0, \gamma^2),
+\]</span></p>
+<p>donde <span class="math inline">\(\gamma = \frac{\sigma}{\mu}\)</span> es el <strong>coeficiente de variación</strong>, y <span class="math inline">\(\overline{X}_M := \frac{1}{M} \sum_{m=1}^{M} X_m\)</span> es la media muestral.</p>
+<p><em>Sugerencia</em>: utilizar el <strong>método delta</strong>:</p>
+<p>Si</p>
+<p><span class="math display">\[
+\sqrt{M}(T_M - \theta) \xrightarrow[M \to \infty]{d} Y \sim \mathcal{N}(0, \tau^2),
+\]</span></p>
+<p>entonces</p>
+<p><span class="math display">\[
+\sqrt{M}\left[f(T_M) - f(\theta)\right] \xrightarrow[M \to \infty]{d} \mathcal{N}\left(0, \tau^2 [f^{\prime}(\theta)]^2\right),
+\]</span></p>
+<p>siempre que <span class="math inline">\(f^{\prime}(\theta)\)</span> exista y sea distinta de cero.</p></li>
+<li><p>Suponga que <span class="math inline">\(X_1, X_2, \dots\)</span> son variables aleatorias i.i.d. con distribución <span class="math inline">\(F_{X_1}(x) = (1 - e^{-x/\mu}) \mathbb{I}_{\{x \geq 0\}}, \, \mu &gt; 0\)</span>.</p>
+<ul>
+<li>Seleccione un valor de <span class="math inline">\(\mu &gt; 0\)</span>. Escriba un programa en <code>R</code> que genere intervalos de confianza del 90% (Monte Carlo) para <span class="math inline">\(\log\mu\)</span>, considerando tamaños muestrales <span class="math inline">\(M = 50, 100, 200\)</span>.</li>
+<li>Grafique la amplitud de los intervalos vs.&nbsp;<span class="math inline">\(M\)</span> y comente los resultados.</li>
+</ul></li>
+<li><p>Defina <span class="math inline">\(\widehat{\gamma}_M = \frac{s_M}{\overline{X}_M}\)</span>, donde</p></li>
+</ol>
+<p><span class="math display">\[
+s_M^2 = \frac{1}{M-1} \sum_{m=1}^M (X_m - \overline{X}_M)^2
+\]</span></p>
+<p>es la varianza muestral. Demuestre que</p>
+<p><span class="math display">\[
+\widehat{\gamma}_M \xrightarrow[M \to \infty]{p} \gamma \equiv \frac{\sigma}{\mu}.
+\]</span></p>
+<ol start="4" type="1">
+<li>Escriba un programa en <code>R</code> que simule <span class="math inline">\(\widehat{\gamma}_M\)</span> para <span class="math inline">\(M = 50, 100, 200, \dots, 1000\)</span>, asumiendo que <span class="math inline">\(X_1, X_2, \dots\)</span> son i.i.d. con distribución <span class="math inline">\(F_{X_1}(x) = (1 - e^{-x/\mu}) \mathbb{I}_{\{x \geq 0\}}\)</span>, con <span class="math inline">\(\mu = 2\)</span>. Grafique <span class="math inline">\(\widehat{\gamma}_M\)</span> versus <span class="math inline">\(M\)</span> y superponga la línea <span class="math inline">\(\gamma = \sigma/\mu\)</span>.</li>
+</ol>
+<section id="solución-3" class="level3 unnumbered">
+<h3 class="unnumbered anchored" data-anchor-id="solución-3">Solución</h3>
+<ol type="1">
+<li><p>Por el Teorema del Límite Central (TLC) para variables aleatorias i.i.d.:<br>
+<span class="math display">\[ \sqrt{M} \left( X_M - \mu \right) \xrightarrow[M \to \infty]{d} Y\,, \quad Y \sim N(0, \sigma^2). \]</span></p>
+<p>Empleando el método delta:</p>
+<p><span class="math display">\[ \sqrt{M} \left( \log\overline{X}_M - \log\mu \right) \xrightarrow[M \to \infty]{d}  W\,, \quad W \sim N \left(0, \sigma^2 \left[  \frac{d}{d \mu} \log(\mu)\right]^{2} \right)  \equiv \mathcal{N}\left(0, \sigma^2 \frac{1}{\mu^{2}} \right) \,.\]</span></p></li>
+<li><p>Código</p></li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>mu <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="co">#Fijamos mu</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>varianza <span class="ot">&lt;-</span> mu<span class="sc">^</span><span class="dv">2</span> <span class="co">#Varianza de una exponencial</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>coeficiente_variacion <span class="ot">&lt;-</span> varianza<span class="sc">/</span>mu<span class="sc">^</span><span class="dv">2</span> <span class="co"># Para el caso de la exponencial coeficiente de variacion es siempre 1</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>lambda <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">/</span>mu <span class="co">#Parametro de la exponencials</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.1</span><span class="sc">/</span><span class="dv">2</span>) <span class="co">#Intervalo de confianza (90%) i.e. alpha = 0.1</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>intervalo <span class="ot">&lt;-</span> <span class="cf">function</span>(M) {</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Obtengo M muestras de una exp(\lambda = 1/mu) </span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  muestras <span class="ot">&lt;-</span> <span class="fu">rexp</span>(M, lambda)</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  X_techo <span class="ot">&lt;-</span> <span class="fu">mean</span>(muestras)</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  f_X_techo <span class="ot">&lt;-</span> <span class="fu">log</span>(X_techo)</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  limite_inferior <span class="ot">&lt;-</span> f_X_techo <span class="sc">-</span> z<span class="sc">*</span>coeficiente_variacion<span class="sc">/</span><span class="fu">sqrt</span>(M)</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  limite_superior <span class="ot">&lt;-</span> f_X_techo <span class="sc">+</span> z<span class="sc">*</span>coeficiente_variacion<span class="sc">/</span><span class="fu">sqrt</span>(M)</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data.frame</span>(<span class="at">M =</span> M, <span class="at">inf =</span> limite_inferior, <span class="at">sup =</span> limite_superior)</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>Ms <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">M =</span> <span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">100</span>, <span class="dv">200</span>))</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>resultados <span class="ot">&lt;-</span> <span class="fu">pmap</span>(Ms, intervalo) <span class="sc">|&gt;</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>                <span class="fu">bind_rows</span>()</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>resultados <span class="sc">|&gt;</span> </span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">tam_intervalo =</span> <span class="fu">abs</span>(sup<span class="sc">-</span>inf)) <span class="sc">|&gt;</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> M, <span class="at">y =</span> tam_intervalo)) <span class="sc">+</span></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">4</span>) <span class="sc">+</span></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">"#2C3E50"</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>         <span class="at">title =</span> <span class="st">"Intervalos de confianza para log(μ)"</span>,</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>         <span class="at">x =</span> <span class="st">"Tamaño muestra"</span>, </span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>         <span class="at">y =</span> <span class="st">"Tamaño intervalo"</span>) <span class="sc">+</span></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">13</span>) <span class="sc">+</span></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(</span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>      <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">16</span>),</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>      <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>),</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>      <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>),</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>      <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>()</span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>    )  </span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a><span class="co">#A medida que crece M se achica el intervalo</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="3" type="1">
+<li>Por la Ley Débil de los Grandes Números (LDGN):</li>
+</ol>
+<p><span class="math display">\[
+\overline{X}_M = \frac{1}{M}\sum_{m=1}^M X_m \xrightarrow[M \to \infty]{p} \mu \,,\quad \text{donde} \quad \mu = \mathbb{E}[X_1] \,.
+\]</span></p>
+<p>La convergencia en probabilidad (consistencia d'ebil) de la varianza muestral: <span class="math display">\[
+s_M^2 = \frac{1}{M-1}\sum_{m=1}^M (X_m - \overline{X}_M)^2 \xrightarrow[M \to \infty]{p} \sigma^2
+\]</span> se obtiene observando que:</p>
+<p><span class="math display">\[
+\begin{equation*}
+s_M^2 = \frac{M}{M-1}\left(\frac{1}{M}\sum_{m=1}^M X_m^2 - (\overline{X}_M)^2\right) \xrightarrow[M \to \infty]{p} 1 \cdot (\mathbb{E}[X_1^2] - \mu^2) = \sigma^2 \,.
+\end{equation*}
+\]</span></p>
+<p>Aplicamos el Teorema del mapeo continuo a la raíz cuadrada (función continua en <span class="math inline">\(\sigma^2 &gt; 0\)</span>):</p>
+<p><span class="math display">\[
+s_M = \sqrt{s_M^2} \xrightarrow[M \to \infty]{p}  \sigma \,.
+\]</span></p>
+<p>Finalmente, utilizamos el siguiente resultado:</p>
+<p>si</p>
+<p><span class="math display">\[Y_M  \xrightarrow[M \to \infty]{p} a \] y \[Z_M  \xrightarrow[M \to \infty]{p} b \neq 0 \]
+entonces \[ \frac{Y_M}{Z_M}  \xrightarrow[M \to \infty]{p} \frac{a}{b} \,. \]</span></p>
+<p>Aquí: <span class="math inline">\(s_M \xrightarrow[M \to \infty]{p} \sigma\)</span> y <span class="math inline">\(\overline{X}_M \xrightarrow[M \to \infty]{p} \mu \neq 0\)</span></p>
+<p>implican que</p>
+<p><span class="math display">\[
+\widehat{\gamma}_M = \frac{s_M}{\overline{X}_M} \xrightarrow[M \to \infty]{p} \frac{\sigma}{\mu} = \gamma \,.
+\]</span></p>
+<ol start="4" type="1">
+<li>Código</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>cv <span class="ot">&lt;-</span> <span class="cf">function</span>(M, seed){</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set.seed</span>(seed)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  muestras <span class="ot">&lt;-</span> <span class="fu">rexp</span>(M, lambda)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  X_sum <span class="ot">&lt;-</span> <span class="fu">sum</span>(muestras)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  X_techo <span class="ot">&lt;-</span> <span class="fu">mean</span>(muestras)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  S_m <span class="ot">&lt;-</span> <span class="fu">sqrt</span>( <span class="dv">1</span><span class="sc">/</span>(M<span class="dv">-1</span>)<span class="sc">*</span>(<span class="fu">sum</span>((muestras<span class="sc">-</span>X_techo)<span class="sc">^</span><span class="dv">2</span>)) )</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data.frame</span>(<span class="at">M =</span> M, <span class="at">cv =</span> S_m <span class="sc">/</span> X_techo)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>Ms <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">25</span>, <span class="dv">50</span>, <span class="dv">100</span>, <span class="dv">200</span>, <span class="dv">500</span>, <span class="dv">1000</span>, <span class="dv">10000</span>)</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>seeds <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100000</span>, <span class="dv">100</span>)</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>resultados <span class="ot">&lt;-</span> <span class="fu">pmap</span>(<span class="fu">crossing</span>(<span class="at">M =</span> Ms, <span class="at">seed =</span> seeds), cv) <span class="sc">|&gt;</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>()</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>resultados <span class="sc">|&gt;</span> </span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(M) <span class="sc">|&gt;</span> </span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_cv =</span> <span class="fu">mean</span>(cv),</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">sd_cv =</span> <span class="fu">sd</span>(cv),</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">"drop"</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> M, <span class="at">y =</span> mean_cv)) <span class="sc">+</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">"#2C3E50"</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>, <span class="at">color =</span> <span class="st">"#1ABC9C"</span>) <span class="sc">+</span></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> mean_cv <span class="sc">-</span> sd_cv, <span class="at">ymax =</span> mean_cv <span class="sc">+</span> sd_cv),</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>                <span class="at">width =</span> <span class="fl">0.05</span>, <span class="at">color =</span> <span class="st">"#34495E"</span>) <span class="sc">+</span></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">1</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_log10</span>(<span class="at">breaks =</span> <span class="fu">unique</span>(resultados<span class="sc">$</span>M)) <span class="sc">+</span></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Estimación del Coeficiente de Variación (CV)"</span>,</span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Media y desviación estándar del CV con escala logarítmica en M"</span>,</span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Tamaño de muestra (M, escala log)"</span>,</span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"CV promedio ± desviación estándar"</span></span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">13</span>) <span class="sc">+</span></span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">16</span>),</span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.subtitle =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>),</span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>),</span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>()</span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./problema_III.html" class="pagination-link" aria-label="Problema III">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Problema III</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

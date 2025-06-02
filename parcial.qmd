@@ -1,0 +1,498 @@
+# Parcial
+
+## Ejercicio 1 (6 puntos)
+
+Un jugador con un capital inicial de, por ejemplo, \$1000, realiza sus apuestas a lo largo de una sucesión de pruebas independientes con la misma probabilidad de éxito $0 < p < 1$. Al final de cada prueba, el jugador tendrá un capital dado por el doble de lo anterior, o la mitad, dependiendo de si el resultado de la prueba es un éxito o un fracaso.
+
+1. Especificar una sucesión $\{X_n\}_{n \geq 1}$ de variables aleatorias reales, tal que $X_n$ represente el capital del jugador luego de la prueba n-ésima.
+2. Hallar el valor esperado de $X_n$, y calcular el límite de $\mathbb{E}(X_n)$ cuando $n \to \infty$.
+3. Probar que si $p < \frac{1}{2}$ entonces $X_n \xrightarrow[n \to \infty]{c.s.} 0$.  
+   _Sugerencia_: considerar el logaritmo de $X_n$ y emplear la Ley Fuerte de los Grandes Números (LFGN) de Kolmogorov para variables aleatorias i.i.d.
+4. Comentar los resultados anteriores cuando $\frac{1}{3} < p < \frac{1}{2}$.
+
+### Solución {.unnumbered}
+
+1. Definimos la sucesión $\{X_n\}_{n \geq 1}$ de variables aleatorias como:
+
+    $$
+    X_n = X_0 \cdot 2^{S_n} \quad \text{donde} \quad 
+    S_n = \sum_{i=1}^n Y_i
+    $$
+
+    con $X_0 = \text{ capital inicial no aleatorio } = 1000$ y las variables $Y_i$, independientes, se definen como:
+
+    $$
+    Y_i = 
+    \begin{cases} 
+    +1 & \text{con probabilidad } p \quad (\text{éxito}), \\
+    -1 & \text{con probabilidad } 1-p \quad (\text{fracaso})\,.
+    \end{cases}
+    $$
+
+2. Calculamos la esperanza
+
+    $$
+    \begin{aligned}
+    E[X_n] &= X_0 \cdot \mathbb{E}\left[2^{S_n}\right] \\
+           &= 1000 \cdot \prod_{i=1}^n E\left[2^{Y_i}\right] \quad \text{(por independencia)} \\
+           &= 1000 \cdot \left(2^1 \cdot p + 2^{-1} \cdot (1-p)\right)^n \\
+           &= 1000 \cdot \left(2p + \frac{1}{2}(1-p)\right)^n \\
+           &= 1000 \cdot \left(\frac{3}{2} p + \frac{1}{2}\right)^n \,.
+    \end{aligned}
+    $$
+
+    Se obtiene:
+
+    $$
+    \lim_{n \to \infty} E[X_n] = 
+    \begin{cases}
+    \infty & \text{si } \frac{3}{2} p + \frac{1}{2} > 1 \Leftrightarrow p > \frac{1}{3} \\
+    0 & \text{si } \frac{3}{2} p + \frac{1}{2} < 1 \Leftrightarrow p < \frac{1}{3} \\
+    1000 & \text{si } p = \frac{1}{3} \,.
+    \end{cases}
+    $$
+
+3. Consideremos el logaritmo del capital al cabo de la apuesta n-ésima:
+
+    $$
+    \log X_n = \log X_0 + (\log 2) \cdot S_n \,.
+    $$
+
+    Por la Ley Fuerte de los Grandes Números (LFGN):
+
+    $$
+    \frac{S_n}{n} \xrightarrow[n \to \infty]{c.s.} E[Y_1] = 2p - 1 \,.
+    $$
+
+    Si $p < \frac{1}{2}$, entonces $2p - 1 < 0$, y se obtiene:
+
+    $$
+    \frac{\log X_n}{n} = \frac{\log X_0}{n} + (\log 2) \cdot \frac{S_n}{n} \xrightarrow[n \to \infty]{c.s.} 0 + (\log 2)(2p - 1) < 0 \,.
+    $$
+
+    Por lo tanto:
+
+    $$
+    \log X_n \xrightarrow[n \to \infty]{c.s.} -\infty \implies X_n \xrightarrow[n \to \infty]{c.s.} 0 \,.
+    $$
+
+4. En el punto 2. vimos que $\lim_{n \to \infty} E[X_n] = \infty$ si $\frac{3}{2} p + \frac{1}{2} > 1  \Leftrightarrow p > \frac{1}{3} \,$.  
+    Por otra parte, en el punto 3, vimos que si  $p < \frac{1}{2}$, entonces $X_n \xrightarrow[n \to \infty]{c.s.} 0 \,.$  
+
+    Para $p < \frac{1}{2}$ se observa la ruina casi segura, a pesar del crecimiento del capital esperado para $\frac{1}{3} < p\,.$
+
+## Ejercicio 2 (9 puntos)
+
+**(i)** Determine la esperanza y varianza de una variable aleatoria $X$ con función de distribución
+
+$$
+F_X(x) = (1 - \varepsilon)\Phi(x) + \varepsilon\Phi\left(\frac{x - \eta}{\tau}\right),
+$$
+
+donde $\Phi(x)$ es la función de distribución de una variable aleatoria $Z \sim \mathcal{N}(0,1)$.
+
+**(ii)** Escriba un programa en `R` para estimar, mediante simulación, la probabilidad
+
+$$
+p = P_{F_X}\left(\frac{\overline{X}_{n} - \mathbb{E}[\overline{X}_{n}]}{\sqrt{\mathrm{Var}[\overline{X}_{n}]}} \leq x\right),
+$$
+
+donde $X_1, X_2, \ldots$ son i.i.d. con función de distribución $F_X$, para los siguientes casos:
+
+- $x = 0, 1, 2$
+- $\varepsilon = 0.1, 0.2, 0.3$
+- $n = 50, 100, 150$
+
+Y tres escenarios distintos de $\eta$ y $\tau$:
+
+1. $\eta = 0$, $\tau = 1, 2, 3$
+2. $\tau = 1$, $\eta = 0.5, 1, 2$
+3. $\eta = \tau = 0.5, 1, 2$
+
+Finalmente, compare los resultados con la aproximación normal $\Phi(x)$.
+
+### Solución {.unnumbered}
+
+1. Calculamos esperanza y varianza
+
+$$
+\begin{align*} 
+E [X]  &  = \int_{\mathbb{R}} x d F_X(x) = \int_{\mathbb{R}} x d \left( (1 - \varepsilon)\Phi(x) + \varepsilon\Phi\left(\frac{x - \eta}{\tau}\right)  \right) \\
+&= (1 - \varepsilon) \int_{\mathbb{R}} x d \Phi(x) + \varepsilon  \int_{\mathbb{R}} x  \Phi\left(\frac{x - \eta}{\tau}\right)  = 
+0 + \varepsilon  \int_{\mathbb{R}} x  \Phi\left(\frac{x - \eta}{\tau}\right) \\
+&= \left( \text{cambio de variable: }  y = \frac{x - \eta}{\tau} \right) =   \varepsilon  \int_{\mathbb{R}} (y \tau + \eta)   \Phi\left(y \right) = \varepsilon  \eta \,.
+\end{align*}
+$$
+
+$$
+\begin{align*} 
+E [X^{2}]  &  = \int_{\mathbb{R}} x^{2} d F_X(x) = \int_{\mathbb{R}} x^{2} d \left( (1 - \varepsilon)\Phi(x) + \varepsilon\Phi\left(\frac{x - \eta}{\tau}\right)  \right) \\
+&= (1 - \varepsilon) \int_{\mathbb{R}} x^{2} d \Phi(x) + \varepsilon  \int_{\mathbb{R}} x^{2}  \Phi\left(\frac{x - \eta}{\tau}\right)  = \\
+&= (1 - \varepsilon) + \varepsilon  \int_{\mathbb{R}} (y \tau + \eta)^{2}   \Phi\left(y \right) = (1 - \varepsilon) + \varepsilon \tau^{2} + \varepsilon \eta^{2}  \,.
+\end{align*}
+$$
+
+$$
+\mathrm{Var}[X] =  (1 - \varepsilon) + \varepsilon \tau^{2} + \varepsilon \eta^{2} - \varepsilon^{2} \eta^{2} \,.
+$$
+
+2. Código
+
+```{r 2.2, eval=F}
+library(tidyverse)
+
+#Definimos la cantidad de X_n que queremos tomar.
+M <- 1000
+
+simulacion <- function(x, epsilon, n, eta, tau){
+
+  esperanza  <- epsilon * eta #Parte 2.1
+  varianza <- (1-epsilon) + epsilon*(tau^2 + eta^2) - (epsilon*eta)^2 #Parte 2.1
+  
+  pr <- sapply(1:M, function(m){
+    
+    #Obtenemos n muestras de la mezcla de normales.
+    muestras <- sapply(1:n, function(n){
+      p <- rbinom(1 , 1, epsilon)
+      if(p == 0){
+        rnorm(1)
+      }
+      else{
+        rnorm(1, eta, tau)
+      }
+    })
+    
+    X_techo <- sum(muestras)/n 
+    
+    as.numeric( (X_techo - esperanza) / sqrt(varianza/n) <= x)
+  })
+  
+  list(
+      x = x,
+      epsilon = epsilon,
+      n = n,
+      eta = eta,
+      tau = tau,
+      sim = sum(pr)/M,  #Prop de cuantos de los m fueron menor igual a x y cuantos mayor (estimacion prob)
+      te0 = pnorm(x)
+  )
+}
+
+###### ARMAMOS LOS DISTINTOS ESCENARIOS #########
+# Parametros base
+base <- crossing(
+  x = c(0, 1, 2),
+  epsilon = c(0.1, 0.2, 0.3),
+  n = c(50, 100, 150)
+)
+
+# Escenario 1: eta fijo en 0, tau variable
+escenario_1 <- base |>
+  crossing(
+    eta = 0,
+    tau = c(1, 2, 3)
+  )
+
+# Escenario 2: eta variable, tau fijo en 1
+escenario_2 <- base |>
+  crossing(
+    eta = c(0.5, 1, 2),
+    tau = 1
+  )
+
+# Escenario 3: eta = tau = c(0.5,1,2)
+escenario_3 <- base |>
+  crossing(
+    tibble(
+      eta = c(0.5, 1, 2),
+      tau = c(0.5, 1, 2)
+    )
+  )
+
+# Unir todos los escenarios
+escenarios <- bind_rows(escenario_1, escenario_2, escenario_3)
+###################################################################
+
+#Obtenemos las simulaciones para los distintos casos.
+resultados <- pmap(escenarios, simulacion) |>
+                transpose() |>
+                map_df(~ unlist(.x)) |>
+                as.data.frame()
+
+escenarios |> cbind(resultados)
+```
+
+## Ejercicio 3 (5 puntos)
+
+Sean $X_1, X_2, \ldots$ variables aleatorias i.i.d., y sea $M_n := \max_{1 \leq m \leq n} X_m$ el máximo de las primeras $n$ observaciones. Demuestre que:
+
+1. Si $F_{X_1}(x) = (1 - x^{-\alpha}) \mathbb{I}_{\{x \geq 1\}}$, con $\alpha > 0$, entonces:
+
+$$
+P\left(\frac{M_n}{n^{1/\alpha}} \leq y\right) \xrightarrow[n \to \infty]{d} \exp(-y^{-\alpha}), \quad \text{para todo } y > 0.
+$$
+
+2. Si $F_{X_1}(x) = (1 - e^{-x}) \mathbb{I}_{\{x \geq 0\}}$, entonces:
+
+$$
+P(M_n - \log n \leq y) \xrightarrow[n \to \infty]{d} \exp(-e^{-y}), \quad \text{para todo } y \in \mathbb{R}.
+$$
+
+### Solución {.unnumbered}
+
+1. Por definición del máximo y usando la independencia de las variables:
+
+     $$
+     \begin{align*}
+     P\Bigl(\tfrac{M_n}{n^{1/\alpha}} \le y\Bigr)
+     &= P\bigl(M_n \le y\,n^{1/\alpha}\bigr) \\
+     &= \prod_{i=1}^n P\bigl(X_i \le y\,n^{1/\alpha}\bigr)
+       \quad\text{(por independencia)}\\
+     &= \bigl[F_{X_1}(y\,n^{1/\alpha})\bigr]^n
+     \end{align*}
+     $$
+  
+     Para $y>0$ y $n$ suficientemente grande $(y n^{1/\alpha} \ge1)$:
+  
+     $$
+     F_{X_1}(y\,n^{1/\alpha})
+     =1-\bigl(y\,n^{1/\alpha}\bigr)^{-\alpha}
+     =1-\frac{1}{y^\alpha\,n}\,.
+     $$
+  
+     Luego:
+  
+     $$
+     \begin{align*}
+     \lim_{n\to\infty}P\Bigl(\tfrac{M_n}{n^{1/\alpha}}\le y\Bigr)
+     &=\lim_{n\to\infty}\Bigl(1-\frac{1}{y^\alpha\,n}\Bigr)^n\\
+     &=\exp\Bigl(-\tfrac{1}{y^\alpha}\Bigr)
+       \quad\bigl(\lim_{n\to\infty}(1-\tfrac c n)^n=e^{-c}\bigr)\\
+     &=\exp\bigl(-y^{-\alpha}\bigr)\,.
+     \end{align*}
+     $$
+
+2. Por definición del máximo y usando la independencia de las variables:
+
+     $$
+     \begin{align*}
+     P(M_n - \log n \le y)
+     &=P\bigl(M_n \le y+\log n\bigr)\\
+     &=\prod_{i=1}^nP\bigl(X_i\le y+\log n\bigr)
+       \quad\text{(por independencia)}\\
+     &=\bigl[F_{X_1}(y+\log n)\bigr]^n\,.
+     \end{align*}
+     $$
+  
+     Para $y \in \mathbb{R}$ y $n$ suficientemente grande $(y+\log n \ge 0)$:
+  
+     $$
+     \begin{align*}
+     F_{X_1}(y+\log n)
+     &=1-e^{-(y+\log n)}\\
+     &=1-e^{-y}e^{-\log n}\\
+     &=1-\frac{e^{-y}}{n}\,.
+     \end{align*}
+     $$
+  
+     Luego:
+  
+     $$
+     \lim_{n\to\infty}P(M_n-\log n\le y)
+     =\lim_{n\to\infty}\Bigl(1-\frac{e^{-y}}{n}\Bigr)^n
+     =\exp\bigl(-e^{-y}\bigr)\,.
+     $$
+
+
+## Ejercicio 4 (10 puntos)
+
+Sean $X_1, X_2, \dots$ variables aleatorias i.i.d. positivas con media $\mu$ y varianza $\sigma^2 < \infty$.
+
+1. Demostrar que
+
+    $$
+    \sqrt{M} \left( \log\overline{X}_M - \log\mu \right) \xrightarrow[M \to \infty]{d} \mathcal{N}\left(0, \frac{\sigma^2}{\mu^2}\right) \equiv \mathcal{N}(0, \gamma^2),
+    $$
+    
+    donde $\gamma = \frac{\sigma}{\mu}$ es el **coeficiente de variación**, y $\overline{X}_M := \frac{1}{M} \sum_{m=1}^{M} X_m$ es la media muestral.
+    
+    _Sugerencia_: utilizar el **método delta**:
+    
+    Si
+    
+    $$
+    \sqrt{M}(T_M - \theta) \xrightarrow[M \to \infty]{d} Y \sim \mathcal{N}(0, \tau^2),
+    $$
+    
+    entonces
+    
+    $$
+    \sqrt{M}\left[f(T_M) - f(\theta)\right] \xrightarrow[M \to \infty]{d} \mathcal{N}\left(0, \tau^2 [f^{\prime}(\theta)]^2\right),
+    $$
+    
+    siempre que $f^{\prime}(\theta)$ exista y sea distinta de cero.
+
+2. Suponga que $X_1, X_2, \dots$ son variables aleatorias i.i.d. con distribución $F_{X_1}(x) = (1 - e^{-x/\mu}) \mathbb{I}_{\{x \geq 0\}}, \, \mu > 0$.
+
+    - Seleccione un valor de $\mu > 0$. Escriba un programa en `R` que genere intervalos de confianza del 90% (Monte Carlo) para $\log\mu$, considerando tamaños muestrales $M = 50, 100, 200$.
+    - Grafique la amplitud de los intervalos vs. $M$ y comente los resultados.
+
+3. Defina $\widehat{\gamma}_M = \frac{s_M}{\overline{X}_M}$, donde
+
+$$
+s_M^2 = \frac{1}{M-1} \sum_{m=1}^M (X_m - \overline{X}_M)^2
+$$
+
+es la varianza muestral. Demuestre que
+
+$$
+\widehat{\gamma}_M \xrightarrow[M \to \infty]{p} \gamma \equiv \frac{\sigma}{\mu}.
+$$
+
+4. Escriba un programa en `R` que simule $\widehat{\gamma}_M$ para $M = 50, 100, 200, \dots, 1000$, asumiendo que $X_1, X_2, \dots$ son i.i.d. con distribución $F_{X_1}(x) = (1 - e^{-x/\mu}) \mathbb{I}_{\{x \geq 0\}}$, con $\mu = 2$. Grafique $\widehat{\gamma}_M$ versus $M$ y superponga la línea $\gamma = \sigma/\mu$.
+
+
+### Solución {.unnumbered}
+
+1. Por el Teorema del Límite Central (TLC) para variables aleatorias i.i.d.:  
+  $$ \sqrt{M} \left( X_M - \mu \right) \xrightarrow[M \to \infty]{d} Y\,, \quad Y \sim N(0, \sigma^2). $$ 
+
+    Empleando el método delta:  
+    
+    $$ \sqrt{M} \left( \log\overline{X}_M - \log\mu \right) \xrightarrow[M \to \infty]{d}  W\,, \quad W \sim N \left(0, \sigma^2 \left[  \frac{d}{d \mu} \log(\mu)\right]^{2} \right)  \equiv \mathcal{N}\left(0, \sigma^2 \frac{1}{\mu^{2}} \right) \,.$$
+2. Código
+
+```{r 4.2, eval=F}
+mu <- 2 #Fijamos mu
+
+varianza <- mu^2 #Varianza de una exponencial
+coeficiente_variacion <- varianza/mu^2 # Para el caso de la exponencial coeficiente de variacion es siempre 1
+lambda <- 1/mu #Parametro de la exponencials
+z <- qnorm(1 - 0.1/2) #Intervalo de confianza (90%) i.e. alpha = 0.1
+
+intervalo <- function(M) {
+  #Obtengo M muestras de una exp(\lambda = 1/mu) 
+
+  muestras <- rexp(M, lambda)
+  X_techo <- mean(muestras)
+  f_X_techo <- log(X_techo)
+
+  limite_inferior <- f_X_techo - z*coeficiente_variacion/sqrt(M)
+  limite_superior <- f_X_techo + z*coeficiente_variacion/sqrt(M)
+  
+  data.frame(M = M, inf = limite_inferior, sup = limite_superior)
+}
+
+Ms <- list(M = c(50, 100, 200))
+
+resultados <- pmap(Ms, intervalo) |>
+                bind_rows()
+
+resultados |> 
+  mutate(tam_intervalo = abs(sup-inf)) |>
+  ggplot(aes(x = M, y = tam_intervalo)) +
+    geom_point(size = 4) +
+    geom_line(color = "#2C3E50", size = 1) +
+    labs(
+         title = "Intervalos de confianza para log(μ)",
+         x = "Tamaño muestra", 
+         y = "Tamaño intervalo") +
+    theme_minimal(base_size = 13) +
+    theme(
+      plot.title = element_text(face = "bold", size = 16),
+      plot.subtitle = element_text(size = 12),
+      axis.title = element_text(face = "bold"),
+      panel.grid.minor = element_blank()
+    )  
+#A medida que crece M se achica el intervalo
+```
+    
+3. Por la Ley Débil de los Grandes Números (LDGN):
+
+$$
+\overline{X}_M = \frac{1}{M}\sum_{m=1}^M X_m \xrightarrow[M \to \infty]{p} \mu \,,\quad \text{donde} \quad \mu = \mathbb{E}[X_1] \,.
+$$
+
+La convergencia en probabilidad (consistencia d\'ebil) de la varianza muestral:
+$$
+s_M^2 = \frac{1}{M-1}\sum_{m=1}^M (X_m - \overline{X}_M)^2 \xrightarrow[M \to \infty]{p} \sigma^2
+$$
+se obtiene observando que:
+
+$$
+\begin{equation*}
+s_M^2 = \frac{M}{M-1}\left(\frac{1}{M}\sum_{m=1}^M X_m^2 - (\overline{X}_M)^2\right) \xrightarrow[M \to \infty]{p} 1 \cdot (\mathbb{E}[X_1^2] - \mu^2) = \sigma^2 \,.
+\end{equation*}
+$$
+
+Aplicamos el Teorema del mapeo continuo a la raíz cuadrada (función continua en $\sigma^2 > 0$):
+
+$$
+s_M = \sqrt{s_M^2} \xrightarrow[M \to \infty]{p}  \sigma \,.
+$$
+
+Finalmente, utilizamos el siguiente resultado: 
+
+si 
+
+$$Y_M  \xrightarrow[M \to \infty]{p} a \] y \[Z_M  \xrightarrow[M \to \infty]{p} b \neq 0 \]
+entonces \[ \frac{Y_M}{Z_M}  \xrightarrow[M \to \infty]{p} \frac{a}{b} \,. $$
+
+Aquí: $s_M \xrightarrow[M \to \infty]{p} \sigma$ y  $\overline{X}_M \xrightarrow[M \to \infty]{p} \mu \neq 0$
+
+implican que 
+
+$$
+\widehat{\gamma}_M = \frac{s_M}{\overline{X}_M} \xrightarrow[M \to \infty]{p} \frac{\sigma}{\mu} = \gamma \,.
+$$
+
+4. Código
+
+```{r 4.4, eval=FALSE}
+cv <- function(M, seed){
+  
+  set.seed(seed)
+  
+  muestras <- rexp(M, lambda)
+  X_sum <- sum(muestras)
+  
+  X_techo <- mean(muestras)
+  S_m <- sqrt( 1/(M-1)*(sum((muestras-X_techo)^2)) )
+  
+  data.frame(M = M, cv = S_m / X_techo)
+}
+
+Ms <- c(10, 25, 50, 100, 200, 500, 1000, 10000)
+seeds <- sample(1:100000, 100)
+
+resultados <- pmap(crossing(M = Ms, seed = seeds), cv) |>
+  bind_rows()
+
+resultados |> 
+  group_by(M) |> 
+  summarize(
+    mean_cv = mean(cv),
+    sd_cv = sd(cv),
+    .groups = "drop"
+  ) |> 
+  ggplot(aes(x = M, y = mean_cv)) +
+  geom_line(color = "#2C3E50", size = 1) +
+  geom_point(size = 3, color = "#1ABC9C") +
+  geom_errorbar(aes(ymin = mean_cv - sd_cv, ymax = mean_cv + sd_cv),
+                width = 0.05, color = "#34495E") +
+  geom_hline(yintercept = 1, linetype = "dashed", color = "red", linewidth = 1) +
+  scale_x_log10(breaks = unique(resultados$M)) +
+  labs(
+    title = "Estimación del Coeficiente de Variación (CV)",
+    subtitle = "Media y desviación estándar del CV con escala logarítmica en M",
+    x = "Tamaño de muestra (M, escala log)",
+    y = "CV promedio ± desviación estándar"
+  ) +
+  theme_minimal(base_size = 13) +
+  theme(
+    plot.title = element_text(face = "bold", size = 16),
+    plot.subtitle = element_text(size = 12),
+    axis.title = element_text(face = "bold"),
+    panel.grid.minor = element_blank()
+  )
+```

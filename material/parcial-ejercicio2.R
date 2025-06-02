@@ -1,5 +1,4 @@
-library(dplyr)
-library(purrr)
+library(tidyverse)
 
 #Definimos la cantidad de X_n que queremos tomar.
 M <- 1000
@@ -28,9 +27,13 @@ simulacion <- function(x, epsilon, n, eta, tau){
   })
   
   list(
-      sim = sum(pr)/M, #Prop de cuantos de los m fueron menor igual a x y cuantos mayor (estimacion prob)
-      esperanza_teorica = esperanza,
-      varianza_teorica = varianza
+      x = x,
+      epsilon = epsilon,
+      n = n,
+      eta = eta,
+      tau = tau,
+      sim = sum(pr)/M,  #Prop de cuantos de los m fueron menor igual a x y cuantos mayor (estimacion prob)
+      te0 = pnorm(x)
   )
 }
 
