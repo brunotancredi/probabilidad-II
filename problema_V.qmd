@@ -1,0 +1,52 @@
+# Problema V
+
+\[G, capítulo 4, p.197\] Demuestre, utilizando funciones características, que si la función de densidad de la probabilidad de la variable aleatoria $X$ está dada por: 
+
+$$
+    f_X(x) = \frac{1}{2}e^{-|x|}, \quad -\infty < x < \infty,
+$$ 
+entonces $X \stackrel{d}{=} Y_1 - Y_2$, donde $Y_1$ y $Y_2$ son variables aleatorias independientes con distribución exponencial: $f_{Y_1}(x) = f_{Y_2}(x) = \exp(-x) \textrm{ para } \: x >0$. 
+
+***Nota:*** La notación "$Y \stackrel{d}{=} W$" indica que las variables aleatorias $Y$ y $W$ tienen la misma distribución.
+
+## Solución
+
+Se observa que la función característica de $Y_1$ es igual a: 
+
+$$
+\psi_{Y_1}(t) = \mathbb{E}[e^{itY_1}] = \frac{1}{1 - it}, \quad t \in \mathbb{R} \,,
+$$ 
+y que la función característica de $-Y_2$ es igual a : 
+
+$$
+\psi_{-Y_2}(t) = \mathbb{E}[e^{-itY_2}] = \frac{1}{1 + it}, \quad t \in \mathbb{R} \,.
+$$
+
+Por independencia: $$ \psi_{Y_1 - Y_2}(t) = \psi_{Y_1}(t) \cdot \psi_{-Y_2}(t) = \frac{1}{1 - it} \cdot \frac{1}{1 + it} = \frac{1}{1 + t^2} .$$
+
+Por otra parte, la función característica de $X$ es igual a: \begin{align*}
+\psi_X(t) &= \mathbb{E}[e^{itX}] = \int_{-\infty}^\infty e^{itx} \cdot \frac{1}{2} e^{-|x|} dx \\
+&= \frac{1}{2} \left( \int_0^\infty e^{itx} e^{-x} dx + \int_{-\infty}^0 e^{itx} e^{x} dx \right)
+\end{align*}
+
+Resolviendo las integrales:
+
+\begin{itemize}
+\item Para $x \geq 0$:
+$$
+\int_0^\infty e^{(it - 1)x} dx = \frac{1}{1 - it} \,,
+$$
+
+\item Para $x < 0$ (con $x = -y$, $y > 0$):
+$$
+\int_{0}^\infty e^{(-ity - y)} dy = \frac{1}{1 + it} \,,
+$$
+\end{itemize}
+
+se obtiene $$ \psi_X(t) = \frac{1}{2} \left( \frac{1}{1 - it} + \frac{1}{1 + it} \right) = \frac{1}{2} \cdot \frac{2}{1 + t^2} = \frac{1}{1 + t^2} \,.$$
+
+Ambas funciones características coinciden: $$
+\psi_X(t) = \psi_{Y_1 - Y_2}(t) = \frac{1}{1 + t^2}, \quad \forall t \in \mathbb{R} \,.
+$$ Por el teorema de unicidad de las funciones características, concluimos: $$
+X \stackrel{d}{=} Y_1 - Y_2 \,.
+$$

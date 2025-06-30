@@ -208,5 +208,25 @@
     "crumbs": [
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Parcial</span>"
     ]
+  },
+  {
+    "objectID": "problema_V.html",
+    "href": "problema_V.html",
+    "title": "5  Problema V",
+    "section": "",
+    "text": "5.1 Solución\nSe observa que la función característica de \\(Y_1\\) es igual a:\n\\[\n\\psi_{Y_1}(t) = \\mathbb{E}[e^{itY_1}] = \\frac{1}{1 - it}, \\quad t \\in \\mathbb{R} \\,,\n\\] y que la función característica de \\(-Y_2\\) es igual a :\n\\[\n\\psi_{-Y_2}(t) = \\mathbb{E}[e^{-itY_2}] = \\frac{1}{1 + it}, \\quad t \\in \\mathbb{R} \\,.\n\\]\nPor independencia: \\[ \\psi_{Y_1 - Y_2}(t) = \\psi_{Y_1}(t) \\cdot \\psi_{-Y_2}(t) = \\frac{1}{1 - it} \\cdot \\frac{1}{1 + it} = \\frac{1}{1 + t^2} .\\]\nPor otra parte, la función característica de \\(X\\) es igual a: \\[\\begin{align*}\n\\psi_X(t) &= \\mathbb{E}[e^{itX}] = \\int_{-\\infty}^\\infty e^{itx} \\cdot \\frac{1}{2} e^{-|x|} dx \\\\\n&= \\frac{1}{2} \\left( \\int_0^\\infty e^{itx} e^{-x} dx + \\int_{-\\infty}^0 e^{itx} e^{x} dx \\right)\n\\end{align*}\\]\nResolviendo las integrales:\nse obtiene \\[ \\psi_X(t) = \\frac{1}{2} \\left( \\frac{1}{1 - it} + \\frac{1}{1 + it} \\right) = \\frac{1}{2} \\cdot \\frac{2}{1 + t^2} = \\frac{1}{1 + t^2} \\,.\\]\nAmbas funciones características coinciden: \\[\n\\psi_X(t) = \\psi_{Y_1 - Y_2}(t) = \\frac{1}{1 + t^2}, \\quad \\forall t \\in \\mathbb{R} \\,.\n\\] Por el teorema de unicidad de las funciones características, concluimos: \\[\nX \\stackrel{d}{=} Y_1 - Y_2 \\,.\n\\]",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Problema V</span>"
+    ]
+  },
+  {
+    "objectID": "problema_VI.html",
+    "href": "problema_VI.html",
+    "title": "6  Problema VI",
+    "section": "",
+    "text": "6.1 Solución\nEn primer lugar, calculamos la función característica de \\(V_n\\)\nLa función de distribución de \\(V_n\\) es:\n\\[\nF_{V_n}(x) = \\left(1 - e^{-x}\\right)^n , \\: x \\geq 0 \\,.\n\\]\nDerivando \\(F_{V_n}(x)\\) con respecto de \\(x\\), se obtiene la densidad de \\(V_n\\):\n\\[\nf_{V_n}(x) = n e^{-x} \\left(1 - e^{-x}\\right)^{n-1} , \\: x \\geq 0 \\,.\n\\]\nLa función característica de \\(V_n\\) está dada por:\n\\[\n\\psi_{V_n}(t) : = \\int_0^\\infty   e^{itx}  f_{V_n}(x) dx =  \\int_0^\\infty e^{itx} n e^{-x} \\left(1 - e^{-x}\\right)^{n-1} dx \\,.\n\\]\nHaciendo el cambio de variable \\(u = e^{-x}\\), \\(du = -e^{-x}dx\\):\n\\[\n\\psi_{V_n}(t) = n \\int_0^1 u^{-it} (1 - u)^{n-1} du = (\\text{función beta} ) = n \\, \\mathrm{B}(1 - it, n)\n\\]\ndonde \\(\\mathrm{B}(a,b) = \\frac{\\Gamma(a)\\Gamma(b)}{\\Gamma(a+b)}\\). Por lo tanto:\n\\[\n\\psi_{V_n}(t) = n \\frac{\\Gamma(1 - it)\\Gamma(n)}{\\Gamma(n + 1 - it)} \\,.\n\\]\nDemostraremos que:\n\\[\nn \\frac{\\Gamma(1 - it)\\Gamma(n)}{\\Gamma(n + 1 - it)} = \\prod_{k=1}^n \\frac{k}{k - it} \\,.\n\\]\nLa función Gamma satisface la propiedad recursiva: \\(\\Gamma(z + 1) = z\\Gamma(z)\\), de manera que para \\(\\Gamma(n + 1 - it)\\): \\[\\begin{align*}\n\\Gamma(n + 1 - it) &= (n - it)\\Gamma(n - it) \\\\\n&= (n - it)(n - 1 - it)\\Gamma(n - 1 - it) \\\\\n&\\;\\;\\vdots \\\\\n&= \\underbrace{(n - it)(n - 1 - it)\\cdots(1 - it)}_{\\prod_{k=1}^n (k - it)} \\Gamma(1 - it)\n\\end{align*}\\]\nEntonces, \\[\nn \\frac{\\Gamma(1 - it)\\Gamma(n)}{\\Gamma(n + 1 - it)} = n \\frac{\\Gamma(1 - it)\\Gamma(n)}{\\Gamma(1 - it) \\prod_{k=1}^n (k - it)} = \\frac{n\\Gamma(n)}{\\prod_{k=1}^n (k - it)} \\,.\n\\]\nPor otra parte, para \\(n \\in \\mathbb{N}\\): \\(\\Gamma(n) = (n - 1)! \\: \\Rightarrow \\quad n\\Gamma(n) = n \\cdot (n - 1)! = n!\\)\nLuego:\n\\[\n\\frac{n\\Gamma(n)}{\\prod_{k=1}^n (k - it)} = \\frac{n!}{\\prod_{k=1}^n (k - it)} = \\frac{ \\prod_{k=1}^n k }{\\prod_{k=1}^n (k - it)} = \\prod_{k=1}^n \\frac{k}{k - it} \\,,\n\\]\ny queda probado que\n\\[\n\\psi_{V_n}(t) = \\prod_{k=1}^n \\frac{k}{k - it} \\,. = \\prod_{k=1}^n \\frac{k}{k - it}\n\\]\nEn segundo lugar, calculamos la función característica de \\(W_n\\)\nSe observa que, para cada término \\(\\frac{1}{k}X_k \\,, k=1, \\ldots, n\\):\n\\[\nF_{ \\frac{X_k}{k}}(x) = P\\left(\\frac{X_k}{k} \\leq x\\right) = P(X_k \\leq kx) = 1 - e^{-kx} , \\:  x \\geq 0 \\,.\n\\]\nDerivando \\(F_{ \\frac{X_k}{k}}(x)\\) con respecto de \\(x\\), se obtiene la densidad de \\(\\frac{X_k}{k}\\):\n\\[\nf_{ \\frac{X_k}{k}}(x) = \\frac{d}{dx}F_{ \\frac{X_k}{k}}(x) = \\frac{d}{dx}\\left(1 - e^{-kx}\\right) = k e^{-kx} , \\:  x \\geq 0 \\,.\n\\]\nLa función característica de \\(\\frac{X_k}{k}\\) está dada por:\n\\[\n\\psi_{ \\frac{X_k}{k}}(t) :=  \\int_0^\\infty e^{itx} k e^{-kx} dx =  \\frac{k}{k - it} \\,.\n\\]\nPor independencia:\n\\[\n\\psi_{W_n}(t) = \\prod_{k=1}^n \\frac{k}{k - it} \\,.\n\\]\nAmbas funciones características coinciden:\n\\[\n\\psi_{V_n}(t) = \\psi_{W_n}(t) = \\prod_{k=1}^n \\frac{k}{k - it}, \\quad \\forall t \\in \\mathbb{R} \\,.\n\\] Por el teorema de unicidad de las funciones características, concluimos:\n\\[\nV_n \\stackrel{d}{=} W_n \\,.\n\\]",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Problema VI</span>"
+    ]
   }
 ]

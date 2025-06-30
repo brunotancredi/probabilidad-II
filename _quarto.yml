@@ -13,6 +13,8 @@ book:
     - problema_II.qmd
     - problema_III.qmd
     - parcial.qmd
+    - problema_V.qmd
+    - problema_VI.qmd
     
 bibliography: references.bib
 
